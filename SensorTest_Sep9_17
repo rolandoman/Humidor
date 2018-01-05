@@ -1,0 +1,282 @@
+/*
+ Test sketch for Temperature Humidity and Lighting controller box
+ 20x4 LCD Screen uses MCP23008 I2C expander
+ ( http://www.ladyada.net/products/i2cspilcdbackpack/index.html )
+ */
+
+// include the library code:
+#include "Wire.h"
+#include "Adafruit_LiquidCrystal.h"
+#include <DHT.h>;
+
+// Connect via i2c, default address #0 (A0-A2 not jumpered)
+Adafruit_LiquidCrystal lcd(0);
+
+// Configure input output pins
+
+#define sensor1 10
+#define DHTTYPE DHT22   // DHT 22  (AM2302)
+DHT dht1(sensor1, DHTTYPE); //// Initialize DHT sensor for normal 16mhz Arduino
+#define sensor2 11
+#define DHTTYPE DHT22   // DHT 22  (AM2302)
+DHT dht2(sensor2, DHTTYPE); //// Initialize DHT sensor for normal 16mhz Arduino
+
+int modePin = 2;                 // top mode button connected to digital pin 2
+int incPin = 4;                 // middle increase button connected to digital pin 4
+int decPin = 8;                 // bottom decrease button connected to digital pin 8
+
+int heatPin = 7;                // controls heater in auto mode
+int lightPin = 12;              // controls relay to led lights
+int mistPin = 9;                // controls the humidifier relay
+
+int isMode;         // track the state of the mode button
+int lastmoderead = LOW; // previous button read
+int lastmodestate = LOW;
+int isInc;         // track the state of the mode button
+int lastisInc = LOW; // previous button state
+int isDec;         // track the state of the mode button
+int lastisDec = LOW; // previous button state
+
+unsigned long lastDebounceTime = 0;  // the last time the output pin was toggled
+unsigned long debounceDelay = 50;    // the debounce time; increase if the output flickers
+
+unsigned long lastSensorQuery = 0;  // the last time we read the sensors (must wait min 2 seconds)
+unsigned long sensorReadDelay = 5000;   // sensor read delay in milliseconds
+
+int testmode = 0;
+
+boolean mistState = false;
+boolean lastmiststate = false;
+
+//float hum;  //Stores humidity value
+//float temp; //Stores temperature value
+
+
+void setup() {
+  
+  Serial.begin(9600);
+  // set up the LCD's number of rows and columns: 
+  lcd.begin(20, 4);
+  // Print a message to the LCD.
+  
+  lcd.setCursor(0, 0);lcd.print("Humidor Controller");
+  lcd.setBacklight(HIGH);
+  
+  pinMode(modePin, INPUT);      // sets the topmost mode button digital pin as input
+  pinMode(incPin, INPUT);      // sets the middle increase button digital pin as input
+  pinMode(decPin, INPUT);      // sets the bottom decrease button digital pin as input
+  
+  lcd.setCursor(0, 1);lcd.print("Mode: Run ");
+  //lcd.setCursor(0, 2);lcd.print("Inc: ");
+  //lcd.setCursor(0, 3);lcd.print("Dec: ");
+  
+  pinMode(heatPin, OUTPUT);     // setup heater pin for relay control
+  digitalWrite(heatPin, HIGH);   // default setting on boot should be off
+  
+  pinMode(lightPin, OUTPUT);     // setup heater pin for relay control
+  digitalWrite(lightPin, HIGH);   // default setting on boot should be off
+  
+  pinMode(mistPin, OUTPUT);     // setup heater pin for relay control
+  digitalWrite(mistPin, HIGH);   // default setting on boot should be off
+  
+  pinMode(A0, OUTPUT);  // Sensor1 power control
+  digitalWrite(A0, HIGH);
+  pinMode(A1, OUTPUT);  // Sensor2 power control
+  digitalWrite(A1, HIGH);
+  
+  dht1.begin();
+  dht2.begin();
+}
+
+void loop() {
+  
+  // read the state of the switch into a local variable:
+  int moderead = digitalRead(modePin);
+  int incread = digitalRead(incPin);
+  int decread = digitalRead(decPin);
+
+  // check to see if you just pressed the button
+  // (i.e. the input went from LOW to HIGH), and you've waited long enough
+  // since the last press to ignore any noise:
+
+  // If the switch changed, due to noise or pressing:
+  if ((moderead != lastmoderead) || (incread != lastisInc) || (decread != lastisDec)) {
+    // reset the debouncing timer
+    lastDebounceTime = millis();
+  }
+  
+  if ((millis() - lastDebounceTime) > debounceDelay) {
+    // whatever the reading is at, it's been there for longer than the debounce
+    // delay, so take it as the actual current state:
+
+    // if the button state has changed:
+    if (moderead != isMode) {
+      isMode = moderead;
+    }
+    if (incread != isInc) {
+      isInc = incread;
+    }
+    if (decread != isDec) {
+      isDec = decread;
+    }
+  }
+
+  if ((isMode == HIGH) && (lastmodestate != HIGH)) {
+    testmode = testmode + 1;
+    if (testmode >= 4) {
+      testmode=0;
+    }
+  }
+
+  lcd.setCursor(6, 1);//lcd.print(testmode);
+  if (testmode == 0) {  lcd.print("Run  ");
+  } else if (testmode == 1) { lcd.print("Heat ");
+  } else if (testmode == 2) { lcd.print("Light");
+  } else if (testmode == 3) { lcd.print("Mist ");}
+
+
+  if ((testmode == 1) && (isInc == HIGH)) {
+    heaterOn();
+  } else {
+    heaterOff();
+  }
+  if ((testmode == 2) && (isInc == HIGH)) {
+    lightOn();
+  } else {
+    lightOff();
+  }
+  if ((testmode == 3) && (isInc == HIGH)) {
+    mistOn();
+  } else {
+    mistOff();
+  }
+
+  if ((lastSensorQuery == 0) || ((millis() - lastSensorQuery) > sensorReadDelay)) {
+    
+    doSensor1Read();
+    doSensor2Read();
+    lastSensorQuery = millis();
+  }
+
+
+  
+
+
+
+
+
+
+  // save the reading. Next time through the loop, it'll be the lastButtonState:
+  lastmoderead = moderead; lastmodestate = isMode;
+  lastisInc = incread;
+  lastisDec = decread;
+  
+  lastmiststate = mistState;
+  
+  // set the cursor to column 0, line 1
+  // (note: line 1 is the second row, since counting begins with 0)
+  //lcd.setCursor(6, 1);
+  //if (isMode == HIGH) {lcd.print("On ");} else {lcd.print("Off");}
+  
+  //lcd.setCursor(5, 2);
+  //if (isInc == HIGH) {lcd.print("On ");} else {lcd.print("Off");}
+  
+  //lcd.setCursor(5, 3);
+  //if (isDec == HIGH) {lcd.print("On ");} else {lcd.print("Off");}
+  
+  //lcd.setBacklight(HIGH);
+  //delay(500);
+  //lcd.setBacklight(LOW);
+  //delay(500);
+  
+  //digitalWrite(heatPin, LOW);   // turn heater on
+  //delay(500);
+  //digitalWrite(heatPin, HIGH);  // turn heater off
+  //delay(500);
+  
+  //digitalWrite(lightPin, LOW);   // turn lights on
+  //delay(500);
+  //digitalWrite(lightPin, HIGH);  // turn lights off
+  //delay(500);
+  
+}
+
+void heaterOn() {
+  digitalWrite(heatPin, LOW);
+}
+void heaterOff() {
+  digitalWrite(heatPin, HIGH);
+}
+
+void lightOn() {
+  digitalWrite(lightPin, LOW);
+}
+void lightOff() {
+  digitalWrite(lightPin, HIGH);
+}
+
+void mistOn() {
+  if (lastmiststate == false) {
+    digitalWrite(mistPin, LOW);
+    mistState = true;
+    delay(300);
+  }
+  digitalWrite(mistPin, HIGH);
+}
+
+void mistOff() {
+  if (lastmiststate == true) {
+    mistState = false;
+    digitalWrite(mistPin, LOW);
+    delay(250);
+    digitalWrite(mistPin, HIGH);
+    delay(250);
+    digitalWrite(mistPin, LOW);
+    delay(250);
+  }
+  digitalWrite(mistPin, HIGH);
+}
+
+void doSensor1Read(){
+  
+  float hum = dht1.readHumidity();
+  float temp= dht1.readTemperature();
+  //Print temp and humidity values to serial monitor
+  Serial.print("Hum1: ");
+  Serial.print(hum);
+  Serial.print(" %, Tem1: ");
+  Serial.print(temp);
+  Serial.println(" Celsius");
+  //digitalWrite(A0, LOW);
+  
+  lcd.setCursor(0, 2);lcd.print("T1=");
+  lcd.setCursor(3, 2);lcd.print(temp);
+  lcd.setCursor(8, 2);lcd.print("C");
+  lcd.setCursor(0, 3);lcd.print("H1=");
+  lcd.setCursor(3, 3);lcd.print(hum);
+  lcd.setCursor(8, 3);lcd.print("%");
+  
+  //delay(2000); //Delay 2 sec.
+}
+
+void doSensor2Read(){
+  
+  float hum = dht2.readHumidity();
+  float temp= dht2.readTemperature();
+  //Print temp and humidity values to serial monitor
+  Serial.print("Hum2: ");
+  Serial.print(hum);
+  Serial.print(" %, Tem2: ");
+  Serial.print(temp);
+  Serial.println(" Celsius");
+  //digitalWrite(A0, LOW);
+  
+  lcd.setCursor(11, 2);lcd.print("T2=");
+  lcd.setCursor(14, 2);lcd.print(temp);
+  lcd.setCursor(19, 2);lcd.print("C");
+  lcd.setCursor(11, 3);lcd.print("H2=");
+  lcd.setCursor(14, 3);lcd.print(hum);
+  lcd.setCursor(19, 3);lcd.print("%");
+  
+  //delay(2000); //Delay 2 sec.
+}
