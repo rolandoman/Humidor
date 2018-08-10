@@ -12,10 +12,11 @@ void setup() {
   // setup the temp and humidity sensors
   dht1.begin();dht2.begin();dht3.begin();
    
+  // all the time intervals are set in aa_definitions file
   timer.setInterval(uploadInterval, sendData); 
   timer.setInterval(measureInterval, readSensorData); 
-  timer.setInterval(updateLCDInterval, updateLCD); // Every 2 seconds update the LCD readout
-  timer.setInterval(uploadInterval, isDaytime); 
+  timer.setInterval(updateLCDInterval, updateLCD); 
+  timer.setInterval(updateDaytimeInterval, isDaytime); 
   
   watchdogSetup();  // make sure that watchdog will reboot if prog hangs
   

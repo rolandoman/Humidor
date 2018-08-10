@@ -33,7 +33,7 @@ byte degC_c[8] = {B01000,B10100,B01000,B00011,B00100,B00100,B00011,B00000};
 const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minute upload sensor data, and check time
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
-//const unsigned long updateDaytimeInterval = (300L * 1000L); // Every 5 minutes update whether it is daytime
+const unsigned long updateDaytimeInterval = (60L * 1000L); // Every 1 minute update time of day
 
 byte runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
 
@@ -43,7 +43,7 @@ IPAddress ip(192, 168, 1, 223); // just in case DHCP doesn't work
 IPAddress dnServer(192, 168, 1, 254);
 IPAddress gateway(192, 168, 1, 254);
 IPAddress subnet(255, 255, 255, 0);
-//char server[] = "api.thingspeak.com";
+
 
 // Sensor Globals
 #define DHTTYPE DHT22   // DHT 22  (AM2302)

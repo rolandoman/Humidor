@@ -20,16 +20,19 @@ void updateLCD(){
   unsigned int b1; // two decimals now...
   unsigned int b2;
 
-  lcd.setCursor(0, 0);lcd.print(F("HCH  "));    
+  lcd.setCursor(0,0);lcd.print(Hours);
+  lcd.setCursor(2,0);lcd.print(F(":"));
+  lcd.setCursor(3,1);lcd.print(Minutes);
+  //lcd.setCursor(0, 0);lcd.print(F("HCH  "));    
   lcd.setCursor(0, 1);lcd.print(F("Mode:"));
-  if (heatcoolFlag) {lcd.setCursor(5, 0);lcd.print(F("HEAT"));
-  } else {lcd.setCursor(5, 0);lcd.print(F("COOL"));}
-  lcd.setCursor(9, 0);lcd.print(F("   "));
+  if (heatcoolFlag) {lcd.setCursor(6, 0);lcd.print(F("HEAT"));
+  } else {lcd.setCursor(6, 0);lcd.print(F("COOL"));}
+  lcd.setCursor(10, 0);lcd.print(F("   "));
   if (heaterPower<100) {
-    lcd.setCursor(9, 0);lcd.print(F("0"));
-    lcd.setCursor(10, 0);lcd.print(heaterPower);
+    lcd.setCursor(10, 0);lcd.print(F("0"));
+    lcd.setCursor(11, 0);lcd.print(heaterPower);
   } else {
-    lcd.setCursor(9, 0);lcd.print(heaterPower);
+    lcd.setCursor(10, 0);lcd.print(heaterPower);
   }
   if (mistFlag) {lcd.setCursor(14, 1);lcd.print(F("  MIST"));
   } else {lcd.setCursor(14, 1);lcd.print(F("noMIST"));}
@@ -63,9 +66,6 @@ void updateLCD(){
     case 0:
       //lcd.clear();
       lcd.setCursor(5,1);lcd.print(F("Run "));
-      lcd.setCursor(9,1);lcd.print(Hours);
-      lcd.setCursor(11,1);lcd.print(F(":"));
-      lcd.setCursor(12,1);lcd.print(Minutes);
       b1 = curT1 / 100 ; // two decimals now...
       b2 = curT1 - (b1 * 100) ;
       lcd.setCursor(0, 2);lcd.print(F("T1="));lcd.setCursor(3, 2);lcd.print(b1);
