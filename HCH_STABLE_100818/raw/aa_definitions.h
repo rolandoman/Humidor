@@ -36,6 +36,7 @@ const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update 
 const unsigned long updateDaytimeInterval = (60L * 1000L); // Every 1 minute update time of day
 
 byte runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
+// also need to be able to change the "fruitFlag" so light can go on and off during daytime
 
 // Network Globals
 byte mac[] = { 0x00, 0xAD, 0xBE, 0xEF, 0xFE, 0xEE };  // registered on my router
@@ -43,7 +44,6 @@ IPAddress ip(192, 168, 1, 223); // just in case DHCP doesn't work
 IPAddress dnServer(192, 168, 1, 254);
 IPAddress gateway(192, 168, 1, 254);
 IPAddress subnet(255, 255, 255, 0);
-
 
 // Sensor Globals
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
@@ -65,7 +65,6 @@ boolean netFlag = false;    // used to notify if data upload has succeeded
 
 boolean fruitFlag = false;  // used to determine whether the LED light is turned on and off in the daytime
 
-
 // Connect via i2c, default address 0x27 (A0-A2 not jumpered)
 LiquidCrystal_I2C lcd(0x27, 20, 4);  // Set the LCD I2C address
 
@@ -81,4 +80,3 @@ byte Hours; byte Minutes;
 SimpleTimer timer;  // Instantiate the SimpleTimer object
 
 DHT dht1(sensPin1, DHTTYPE); DHT dht2(sensPin2, DHTTYPE); DHT dht3(sensPin3, DHTTYPE);  //// Instantiate DHT sensors
-

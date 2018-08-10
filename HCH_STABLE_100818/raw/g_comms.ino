@@ -11,7 +11,6 @@ void sendData() {
   // if there's a successful connection:
   if (eclient.connect("rmclarke.ca", 8086)) {
 
-
     char outBuf[4];
     char databuffer[3];
     char data[1024]; // need to end reliance on arduino 'Strings'
