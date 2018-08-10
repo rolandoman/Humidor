@@ -59,9 +59,12 @@ unsigned int setH = 75; // initial set points for feedback
 unsigned int heaterPower = 0; // make sure the heater starts in the off position
 boolean heatcoolFlag = false;
 
-boolean lightFlag = false;
-boolean mistFlag = false;
-boolean netFlag = false;
+boolean lightFlag = false;  // should we turn on the LED
+boolean mistFlag = false;   // should we mist?
+boolean netFlag = false;    // used to notify if data upload has succeeded
+
+boolean fruitFlag = false;  // used to determine whether the LED light is turned on and off in the daytime
+
 
 // Connect via i2c, default address 0x27 (A0-A2 not jumpered)
 LiquidCrystal_I2C lcd(0x27, 20, 4);  // Set the LCD I2C address
