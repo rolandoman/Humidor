@@ -19,9 +19,10 @@ Should follow this format as more and more functions or tests are added to the p
 #include <SPI.h>
 #include <Ethernet.h>
 #include <SimpleTimer.h>
+#include <Adafruit_Sensor.h>
 #include <DHT.h>
 #include "Wire.h"
 #include <LiquidCrystal_I2C.h>
 #include <Button.h>
-#include "aa_definitions.h"
+
 
