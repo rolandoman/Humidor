@@ -12,7 +12,7 @@ void lcdSetup(void) {
   lcd.backlight();
   delay(250);
   lcd.setCursor(0, 0);lcd.print(F("HCH  "));    
-  lcd.setCursor(0, 1);lcd.print(F("Mode:Setup   "));
+  lcd.setCursor(0, 1);lcd.print(F("Mode:Setup    "));
   
 }
 
@@ -49,7 +49,7 @@ void updateLCD(){
     lcd.setCursor(10, 2);lcd.print(char(degrees_C_char));  //moved to allow for 2 decimals
     lcd.setCursor(0, 3);lcd.print(F("setH="));lcd.setCursor(5, 3);lcd.print(setH);
     lcd.setCursor(7, 3);lcd.print(F("%"));   
-  }
+  } 
 
   switch (runMode) {
     case 1:
@@ -62,7 +62,10 @@ void updateLCD(){
       break;
     case 0:
       //lcd.clear();
-      lcd.setCursor(5, 1);lcd.print(F("Run     "));
+      lcd.setCursor(5,1);lcd.print(F("Run "));
+      lcd.setCursor(9,1);lcd.print(Hours);
+      lcd.setCursor(11,1);lcd.print(F(":"));
+      lcd.setCursor(12,1);lcd.print(Minutes);
       b1 = curT1 / 100 ; // two decimals now...
       b2 = curT1 - (b1 * 100) ;
       lcd.setCursor(0, 2);lcd.print(F("T1="));lcd.setCursor(3, 2);lcd.print(b1);
