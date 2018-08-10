@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "installing..."
+
 if [ ! -d "source" ]; then
         mkdir source
 fi
