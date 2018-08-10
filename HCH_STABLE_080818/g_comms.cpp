@@ -63,8 +63,6 @@ void sendData() {
     strcat(data, "setH,owner=rolo,group=home,device=hch2 value=");
     snprintf(databuffer, 2, "%02d", setH);strcat(data, databuffer);strcat(data, "\n");
 
-
-
     eclient.println(F("POST /write?db=iot1&u=iot&p=iot HTTP/1.1"));
     eclient.println(F("Host: rmclarke.ca"));
     eclient.println(F("Connection: close"));
