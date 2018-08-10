@@ -12,20 +12,20 @@ void sendData() {
   if (eclient.connect("rmclarke.ca", 8086)) {
 
     char outBuf[4];
-    String data = String(F("temp1,owner=rolo,group=home,device=hch2 value="))+String(Tb1,DEC)+"."+String(Tb2,DEC)+"\n";
+    String data = String("temp1,owner=rolo,group=home,device=hch2 value=")+String(Tb1,DEC)+"."+String(Tb2,DEC)+"\n";
     Tb1 = (unsigned int) (curT2 / 100);
     Tb2 = (unsigned int) ((unsigned int)curT2 - ((unsigned int)Tb1 * 100)) ;
-    data.concat(String(F("temp2,owner=rolo,group=home,device=hch2 value="))+String(Tb1,DEC)+"."+String(Tb2,DEC)+"\n");
-    data.concat(String(F("hum1,owner=rolo,group=home,device=hch2 value="))+String(curH1,DEC)+"\n");
-    data.concat(String(F("hum2,owner=rolo,group=home,device=hch2 value="))+String(curH2,DEC)+"\n");
-    data.concat(String(F("heatcool,owner=rolo,group=home,device=hch2 value="))+String(heatcoolFlag,DEC)+"\n");
-    data.concat(String(F("mist,owner=rolo,group=home,device=hch2 value="))+String(mistFlag,DEC)+"\n");
-    data.concat(String(F("hpower,owner=rolo,group=home,device=hch2 value="))+String(heaterPower,DEC)+"\n");
-    data.concat(String(F("light,owner=rolo,group=home,device=hch2 value="))+String(lightFlag,DEC)+"\n");
+    data.concat(String("temp2,owner=rolo,group=home,device=hch2 value=")+String(Tb1,DEC)+"."+String(Tb2,DEC)+"\n");
+    data.concat(String("hum1,owner=rolo,group=home,device=hch2 value=")+String(curH1,DEC)+"\n");
+    data.concat(String("hum2,owner=rolo,group=home,device=hch2 value=")+String(curH2,DEC)+"\n");
+    data.concat(String("heatcool,owner=rolo,group=home,device=hch2 value=")+String(heatcoolFlag,DEC)+"\n");
+    data.concat(String("mist,owner=rolo,group=home,device=hch2 value=")+String(mistFlag,DEC)+"\n");
+    data.concat(String("hpower,owner=rolo,group=home,device=hch2 value=")+String(heaterPower,DEC)+"\n");
+    data.concat(String("light,owner=rolo,group=home,device=hch2 value=")+String(lightFlag,DEC)+"\n");
     Tb1 = (unsigned int) (setT / 100);
     Tb2 = (unsigned int) ((unsigned int)setT - ((unsigned int)Tb1 * 100)) ;
-    data.concat(String(F("setT,owner=rolo,group=home,device=hch2 value="))+String(Tb1,DEC)+"."+String(Tb2,DEC)+"\n");
-    data.concat(String(F("setH,owner=rolo,group=home,device=hch2 value="))+String(setH,DEC)+"\n");
+    data.concat(String("setT,owner=rolo,group=home,device=hch2 value=")+String(Tb1,DEC)+"."+String(Tb2,DEC)+"\n");
+    data.concat(String("setH,owner=rolo,group=home,device=hch2 value=")+String(setH,DEC)+"\n");
     eclient.println(F("POST /write?db=iot1&u=iot&p=iot HTTP/1.1"));
     eclient.println(F("Host: rmclarke.ca"));
     eclient.println(F("Connection: close"));
