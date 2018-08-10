@@ -13,6 +13,6 @@ pname=`basename "$PWD"`
 cd raw
 cat $pname.ino aa_definitions.h *.ino > ../source/source.ino
 
-cp ../Makefile source/
-cd source
+cp ../Makefile ../source/
+cd ../source
 make
