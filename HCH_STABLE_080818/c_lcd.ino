@@ -22,7 +22,7 @@ void updateLCD(){
 
   lcd.setCursor(0,0);lcd.print(Hours);
   lcd.setCursor(2,0);lcd.print(F(":"));
-  lcd.setCursor(3,1);lcd.print(Minutes);
+  lcd.setCursor(3,0);lcd.print(Minutes);
   //lcd.setCursor(0, 0);lcd.print(F("HCH  "));    
   lcd.setCursor(0, 1);lcd.print(F("Mode:"));
   if (heatcoolFlag) {lcd.setCursor(6, 0);lcd.print(F("HEAT"));
@@ -65,7 +65,7 @@ void updateLCD(){
       break;
     case 0:
       //lcd.clear();
-      lcd.setCursor(5,1);lcd.print(F("Run "));
+      lcd.setCursor(5,1);lcd.print(F("Run  "));
       b1 = curT1 / 100 ; // two decimals now...
       b2 = curT1 - (b1 * 100) ;
       lcd.setCursor(0, 2);lcd.print(F("T1="));lcd.setCursor(3, 2);lcd.print(b1);
