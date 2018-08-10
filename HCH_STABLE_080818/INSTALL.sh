@@ -6,9 +6,9 @@ fi
 
 rm -rf source/*
 
-cd raw
-
 pname=`basename "$PWD"`
+
+cd raw
 cat $pname.ino aa_definitions.h *.ino > ../source/source.ino
 
 cp Makefile source/
