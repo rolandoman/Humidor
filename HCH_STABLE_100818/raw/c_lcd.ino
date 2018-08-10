@@ -1,19 +1,19 @@
 
 void lcdSetup(void) {
-  
+
   lcd.createChar(net1_char, N1_c);
   lcd.createChar(net2_char, N2_c);
   lcd.createChar(degrees_C_char, degC_c);
-  
+
   lcd.backlight();
   delay(250);
   lcd.noBacklight();
   delay(250);
   lcd.backlight();
   delay(250);
-  lcd.setCursor(0, 0);lcd.print(F("HCH  "));    
+  lcd.setCursor(0, 0);lcd.print(F("HCH  "));
   lcd.setCursor(0, 1);lcd.print(F("Mode:Setup    "));
-  
+
 }
 
 void updateLCD(){
@@ -23,7 +23,7 @@ void updateLCD(){
   lcd.setCursor(0,0);lcd.print(Hours);
   lcd.setCursor(2,0);lcd.print(F(":"));
   lcd.setCursor(3,0);lcd.print(Minutes);
-  //lcd.setCursor(0, 0);lcd.print(F("HCH  "));    
+  //lcd.setCursor(0, 0);lcd.print(F("HCH  "));
   lcd.setCursor(0, 1);lcd.print(F("Mode:"));
   if (heatcoolFlag) {lcd.setCursor(6, 0);lcd.print(F("HEAT"));
   } else {lcd.setCursor(6, 0);lcd.print(F("COOL"));}
@@ -51,15 +51,15 @@ void updateLCD(){
     lcd.setCursor(7, 2);lcd.print(F("."));lcd.setCursor(8, 2);lcd.print(b2);
     lcd.setCursor(10, 2);lcd.print(char(degrees_C_char));  //moved to allow for 2 decimals
     lcd.setCursor(0, 3);lcd.print(F("setH="));lcd.setCursor(5, 3);lcd.print(setH);
-    lcd.setCursor(7, 3);lcd.print(F("%"));   
-  } 
+    lcd.setCursor(7, 3);lcd.print(F("%"));
+  }
 
   switch (runMode) {
     case 1:
       lcd.setCursor(12, 2);lcd.print(F("<-"));
       lcd.setCursor(12, 3);lcd.print(F("  "));
       break;
-    case 2: 
+    case 2:
       lcd.setCursor(12, 2);lcd.print(F("  "));
       lcd.setCursor(12, 3);lcd.print(F("<-"));
       break;
@@ -71,20 +71,18 @@ void updateLCD(){
       lcd.setCursor(0, 2);lcd.print(F("T1="));lcd.setCursor(3, 2);lcd.print(b1);
       lcd.setCursor(5, 2);lcd.print(F("."));lcd.setCursor(6, 2);lcd.print(b2);
       lcd.setCursor(8, 2);lcd.print(char(degrees_C_char));  //moved to allow for 2 decimals
-  
+
       lcd.setCursor(0, 3);lcd.print(F("H1="));lcd.setCursor(3, 3);lcd.print(curH1);
       lcd.setCursor(5, 3);lcd.print(F("%"));
-  
+
       b1 = curT2 / 100;b2 = curT2 - (b1 * 100) ;
-  
+
       lcd.setCursor(11, 2);lcd.print(F("T2="));lcd.setCursor(14, 2);lcd.print(b1);
       lcd.setCursor(16, 2);lcd.print(F("."));lcd.setCursor(17, 2);lcd.print(b2);
       lcd.setCursor(19, 2);lcd.print(char(degrees_C_char)); //moved to allow for 2 decimals
-  
+
       lcd.setCursor(11, 3);lcd.print(F("H2="));lcd.setCursor(14, 3);lcd.print(curH2);
       lcd.setCursor(16, 3);lcd.print(F("%"));
-      break;  
+      break;
   }
 }
-
-
