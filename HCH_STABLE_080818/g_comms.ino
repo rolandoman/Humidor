@@ -1,5 +1,5 @@
 /*                                      */
-/*          THINGSPEAK API CALL         */
+/*          rmclarke.ca influxdb comm function         */
 void sendData() {
   // Make sure that the DHCP lease is current...
   Ethernet.maintain();
