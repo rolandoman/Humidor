@@ -1,7 +1,12 @@
 /*                                      */
 /*          rmclarke.ca influxdb comm function         */
 void sendData() {
-  // Make sure that the DHCP lease is current...
+  // initialize comms variables
+  char outBuf[24];
+  char databuffer[6];
+  char data[500]; // need to end reliance on arduino 'Strings'
+
+  // Make sure that the DHCP lease is current..
   Ethernet.maintain();
   // close any connection before send a new request.
   // This will free the socket on the Ethernet shield
@@ -10,10 +15,6 @@ void sendData() {
   unsigned int Tb2 = (unsigned int) ((unsigned int)curT1 - ((unsigned int)Tb1 * 100));
   // if there's a successful connection:
   if (eclient.connect("rmclarke.ca", 8086)) {
-
-    char outBuf[24];
-    char databuffer[6];
-    char data[500]; // need to end reliance on arduino 'Strings'
 
     //String data = String("temp1,owner=rolo,group=home,device=hch2 value=")+String(Tb1,DEC)+"."+String(Tb2,DEC)+"\n";
     strcpy(data, "temp1,owner=rolo,group=home,device=hch2 value=");
