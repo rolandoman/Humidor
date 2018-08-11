@@ -9,7 +9,7 @@ void loop() {
     if (runMode>2) {
       runMode=0;
     }
-    cd.clear();
+    lcd.clear();
     updateLCD();
   }
   //if (runMode==1) { // Edit the setT of the feedback routine
