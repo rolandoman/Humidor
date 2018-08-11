@@ -77,7 +77,8 @@ Button botB(botButton, false, false, 50);
 
 EthernetClient eclient; // Instantiate the Ethernet Client Library
 
-byte Hours; byte Minutes;
+byte Hours=0;
+byte Minutes=0;
 
 SimpleTimer timer;  // Instantiate the SimpleTimer object
 
