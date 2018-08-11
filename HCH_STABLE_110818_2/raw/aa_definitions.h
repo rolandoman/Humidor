@@ -47,7 +47,7 @@ IPAddress dnServer(192, 168, 1, 254);
 IPAddress gateway(192, 168, 1, 254);
 IPAddress subnet(255, 255, 255, 0);
 
-byte influxserver[] = {35,197,35,96};
+IPAddress influxserver(35,197,35,96);
 unsigned int udpport = 8089;
 
 // Sensor Globals
