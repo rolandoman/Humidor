@@ -16,9 +16,9 @@ void setup() {
   dht1.begin();dht2.begin();dht3.begin();
 
   // all the time intervals are set in aa_definitions file
-  timer.setInterval(uploadInterval, sendData);
-  timer.setInterval(measureInterval, readSensorData);
-  timer.setInterval(updateLCDInterval, updateLCD);
+  //timer.setInterval(uploadInterval, sendData);
+  //timer.setInterval(measureInterval, readSensorData);
+  //timer.setInterval(updateLCDInterval, updateLCD);
   timer.setInterval(updateDaytimeInterval, isDaytime);
 
   watchdogSetup();  // make sure that watchdog will reboot if prog hangs

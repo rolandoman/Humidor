@@ -21,7 +21,7 @@ void isDaytime () {
     //eclient.setTimeout(500);
     if (eclient.find((char *)"\r\nDate: ") && eclient.readBytes(buf, 5) == 5) {
       //Serial.println(F("Date Found"));
-      unsigned day = eclient.parseInt();    // day
+      unsigned int day = eclient.parseInt();    // day
       eclient.readBytes(buf, 1);    // discard
       eclient.readBytes(buf, 3);    // month
       int year = eclient.parseInt();    // year
