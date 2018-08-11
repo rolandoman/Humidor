@@ -6,7 +6,7 @@
  */
 
 void isDaytime () {
-  eclient.flush();eclient.stop();
+  //eclient.flush();eclient.stop();
   // Decided to choose my own webserver for simplicity
   if (eclient.connect("rmclarke.ca", 80))  {
     // Make an HTTP 1.1 request which is missing a Host: header

@@ -82,8 +82,8 @@ Button botB(botButton, false, false, 50);
 EthernetClient eclient; // Instantiate the Ethernet Client Library
 EthernetUDP udp;  // try sending influx data using UDP packets
 
-unsigned char Hours=0;
-unsigned char Minutes=0;
+int Hours=0;
+int Minutes=0;
 
 SimpleTimer timer;  // Instantiate the SimpleTimer object
 

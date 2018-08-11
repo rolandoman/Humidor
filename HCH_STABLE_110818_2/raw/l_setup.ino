@@ -8,7 +8,7 @@ void setup() {
   ioSetup();  // setup which arduino pins are INPUT, and OUTPUT...
   delay(250); // give the ethernet module time to boot up: This was soooo crucial!!!
   Ethernet.begin(mac, ip, dnServer, gateway, subnet);
-  eclient.setTimeout(500);
+  eclient.setTimeout(3000);
   delay(500);
 
   udp.begin(udpport);
