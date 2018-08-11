@@ -13,6 +13,8 @@ void loop() {
     if (botB.wasPressed()) {setH = setH - 1;updateLCD();}
   }
 
+  eclient.flush();
+
   timer.run();  // timer initiation...
   wdt_reset();
 } // end main loop
