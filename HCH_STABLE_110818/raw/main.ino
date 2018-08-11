@@ -5,12 +5,12 @@ void loop() {
   botB.read();
 
   if (topB.wasPressed()) {  //If the button was pressed, rotate runMode
-    runMode++;
-    if (runMode>2) {
-      runMode=0;
-    }
-    lcd.clear();
-    updateLCD();
+    //runMode++;
+    //if (runMode>2) {
+    //  runMode=0;
+    //}
+    //lcd.clear();
+    //updateLCD();
   }
   //if (runMode==1) { // Edit the setT of the feedback routine
   //  if (midB.wasPressed()) {setT = setT + 10;updateLCD();}
