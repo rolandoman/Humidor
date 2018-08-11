@@ -73,9 +73,9 @@ void sendData() {
 
     //eclient.setTimeout(50);
     netFlag = true;
-    delay(10);
-    eclient.flush();
-    eclient.stop();
+    //delay(10);
+    //eclient.flush();
+    //eclient.stop();
 
   } else {
     // if you couldn't make a connection:
