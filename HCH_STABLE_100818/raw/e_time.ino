@@ -6,7 +6,7 @@
  */
 
 void isDaytime () {
-  
+
   // Decided to choose my own webserver for simplicity
   if (eclient.connect("rmclarke.ca", 80))  {
     // Make an HTTP 1.1 request which is missing a Host: header
@@ -18,7 +18,7 @@ void isDaytime () {
     eclient.println();
 
     char buf[5];      // temporary buffer for characters
-    eclient.setTimeout(3000);
+    eclient.setTimeout(500);
     if (eclient.find((char *)"\r\nDate: ") && eclient.readBytes(buf, 5) == 5) {
       //Serial.println(F("Date Found"));
       unsigned day = eclient.parseInt();    // day
@@ -38,5 +38,3 @@ void isDaytime () {
   // adjust these numbers to change lighting time. 6am to 7pm initially.
   if (((Hours>=6) && (Hours<19)) && fruitFlag)  {lightFlag = true;} else {lightFlag = false;}
 }
-
-
