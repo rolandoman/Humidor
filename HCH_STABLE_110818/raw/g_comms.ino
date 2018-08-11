@@ -76,7 +76,7 @@ void sendData() {
     netFlag = true;
     delay(50);
     //eclient.flush();
-    eclient.stop();
+    //eclient.stop();
 
   } else {
     // if you couldn't make a connection:
