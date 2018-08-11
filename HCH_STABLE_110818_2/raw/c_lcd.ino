@@ -20,6 +20,8 @@ void updateLCD(){
   unsigned char b1; // two decimals now...
   unsigned char b2;
 
+  if (runMode!=oldRunMode) {lcd.clear();}
+
   lcd.setCursor(0,0);
   if (Hours<10) {lcd.print("0");lcd.setCursor(1,0);}
   lcd.print(Hours);
@@ -104,4 +106,5 @@ void updateLCD(){
       lcd.setCursor(16, 3);lcd.print(F("%"));
       break;
   }
+  oldRunMode=runMode;
 }

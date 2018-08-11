@@ -37,6 +37,7 @@ const unsigned long updateDaytimeInterval = (60L * 1000L); // Every 1 minute upd
 
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
 unsigned char maxRunMode = 2;
+unsigned char oldRunMode = 0;
 // also need to be able to change the "fruitFlag" so light can go on and off during daytime
 
 // Network Globals
