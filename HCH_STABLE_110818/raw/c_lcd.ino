@@ -17,8 +17,8 @@ void lcdSetup(void) {
 }
 
 void updateLCD(){
-  unsigned int b1; // two decimals now...
-  unsigned int b2;
+  unsigned char b1; // two decimals now...
+  unsigned char b2;
 
   lcd.setCursor(0,0);
   if (Hours<10) {lcd.print("0");lcd.setCursor(1,0);}
@@ -59,9 +59,10 @@ void updateLCD(){
   }
 
   if (runMode!=0) {
-    lcd.setCursor(5, 1);lcd.print(F("Config  "));
-    b1 = setT / 100 ; // two decimals now...
-    b2 = setT - (b1 * 100);
+    //lcd.setCursor(5, 1);lcd.print(F("Config  "));
+    lcd.setCursor(5, 1);lcd.print(runMode,DEC);
+    b1 = (unsigned char) (setT / 100); // two decimals now...
+    b2 = (unsigned char) (setT - (b1 * 100));
     lcd.setCursor(0, 2);lcd.print(F("setT="));lcd.setCursor(5, 2);lcd.print(b1);
     lcd.setCursor(7, 2);lcd.print(F("."));lcd.setCursor(8, 2);lcd.print(b2);
     lcd.setCursor(10, 2);lcd.print(char(degrees_C_char));  //moved to allow for 2 decimals
@@ -81,8 +82,8 @@ void updateLCD(){
     case 0:
       //lcd.clear();
       lcd.setCursor(5,1);lcd.print(F("Run  "));
-      b1 = curT1 / 100 ; // two decimals now...
-      b2 = curT1 - (b1 * 100) ;
+      b1 = (unsigned char) (curT1 / 100) ; // two decimals now...
+      b2 = (unsigned char) (curT1 - (b1 * 100)) ;
       lcd.setCursor(0, 2);lcd.print(F("T1="));lcd.setCursor(3, 2);lcd.print(b1);
       lcd.setCursor(5, 2);lcd.print(F("."));lcd.setCursor(6, 2);lcd.print(b2);
       lcd.setCursor(8, 2);lcd.print(char(degrees_C_char));  //moved to allow for 2 decimals
@@ -90,7 +91,8 @@ void updateLCD(){
       lcd.setCursor(0, 3);lcd.print(F("H1="));lcd.setCursor(3, 3);lcd.print(curH1);
       lcd.setCursor(5, 3);lcd.print(F("%"));
 
-      b1 = curT2 / 100;b2 = curT2 - (b1 * 100) ;
+      b1 = (unsigned char) (curT2 / 100);
+      b2 = (unsigned char) (curT2 - (b1 * 100)) ;
 
       lcd.setCursor(11, 2);lcd.print(F("T2="));lcd.setCursor(14, 2);lcd.print(b1);
       lcd.setCursor(16, 2);lcd.print(F("."));lcd.setCursor(17, 2);lcd.print(b2);
