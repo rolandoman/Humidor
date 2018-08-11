@@ -31,7 +31,7 @@ void isDaytime () {
     } //else {Serial.println(F("No Date"));}
     netFlag = true;
   } else {netFlag = false;}
-  delay(10);
+  delay(100);
   eclient.flush();
   eclient.stop();
   if (Hours>=7) {Hours = Hours-7;} else {Hours = Hours+17;} // adjust for PST time zone
