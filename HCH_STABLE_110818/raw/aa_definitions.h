@@ -63,6 +63,7 @@ boolean lightFlag = false;  // should we turn on the LED
 boolean mistFlag = false;   // should we mist?
 boolean netFlag = false;    // used to notify if data upload has succeeded
 
+boolean isDay = false;  // within the right hour range to be day time
 boolean fruitFlag = false;  // used to determine whether the LED light is turned on and off in the daytime
 
 // Connect via i2c, default address 0x27 (A0-A2 not jumpered)

@@ -32,21 +32,32 @@ void updateLCD(){
   if (heatcoolFlag) {lcd.setCursor(6, 0);lcd.print(F("HEAT"));
   } else {lcd.setCursor(6, 0);lcd.print(F("COOL"));}
   lcd.setCursor(10, 0);lcd.print(F("   "));
+
+  lcd.setCursor(10, 0);
   if (heaterPower<100) {
-    lcd.setCursor(10, 0);lcd.print(F("0"));
-    lcd.setCursor(11, 0);lcd.print(heaterPower);
-  } else {
-    lcd.setCursor(10, 0);lcd.print(heaterPower);
+    lcd.print(F("0"));lcd.setCursor(11, 0);
   }
+  if (heaterPower<10) {
+    lcd.print(F("0"));lcd.setCursor(12, 0);
+  }
+  lcd.print(heaterPower);
+
   if (mistFlag) {lcd.setCursor(14, 1);lcd.print(F("  MIST"));
   } else {lcd.setCursor(14, 1);lcd.print(F("noMIST"));}
+
   if (netFlag) {
     lcd.setCursor(18, 0);lcd.print(char(net1_char));  // print the cool Ethernet symbol on the screen
     lcd.setCursor(19, 0);lcd.print(char(net2_char));  // This means comms is good
   } else {
     lcd.setCursor(18, 0);lcd.print(F("--"));  // print the Eth fail on LCD
   }
-  if (lightFlag) {lcd.setCursor(14, 0);lcd.print(F("DAY"));} else {lcd.setCursor(14, 0);lcd.print(F("EVE"));}
+
+  if (isDay) {
+    lcd.setCursor(14, 0);lcd.print(F("DAY"));
+  } else {
+    lcd.setCursor(14, 0);lcd.print(F("EVE"));
+  }
+
   if (runMode!=0) {
     lcd.setCursor(5, 1);lcd.print(F("Config  "));
     b1 = setT / 100 ; // two decimals now...

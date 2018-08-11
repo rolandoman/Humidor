@@ -36,5 +36,6 @@ void isDaytime () {
   eclient.stop();
   if (Hours>=7) {Hours = Hours-7;} else {Hours = Hours+17;} // adjust for PST time zone
   // adjust these numbers to change lighting time. 6am to 7pm initially.
-  if (((Hours>=6) && (Hours<19)) && fruitFlag)  {lightFlag = true;} else {lightFlag = false;}
+  if ((Hours>=6) && (Hours<19))  {isDay = true;} else {isDay=false;}
+  if (isDay && fruitFlag) {lightFlag = true;} else {lightFlag = false;}
 }
