@@ -30,7 +30,11 @@ void isDaytime () {
       byte second = eclient.parseInt(); // second
     } //else {Serial.println(F("No Date"));}
     netFlag = true;
-  } else {netFlag = false;}
+  } else {
+    netFlag = false;
+    Hours = 0;
+    Minutes = 0;
+  }
   delay(100);
   eclient.flush();
   eclient.stop();
