@@ -11,7 +11,7 @@ void setup() {
   eclient.setTimeout(100);
   delay(500);
 
-  //udp.begin(udpport);
+  udp.begin(udpport);
   // setup the temp and humidity sensors
   dht1.begin();dht2.begin();dht3.begin();
 
