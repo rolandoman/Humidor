@@ -20,9 +20,13 @@ void updateLCD(){
   unsigned int b1; // two decimals now...
   unsigned int b2;
 
-  lcd.setCursor(0,0);lcd.print(Hours);
+  lcd.setCursor(0,0);
+  if (Hours<10) {lcd.print("0");lcd.setCursor(1,0);}
+  lcd.print(Hours);
   lcd.setCursor(2,0);lcd.print(F(":"));
-  lcd.setCursor(3,0);lcd.print(Minutes);
+  lcd.setCursor(3,0);
+  if (Minutes<10) {lcd.print("0");lcd.setCursor(4,0);}
+  lcd.print(Minutes);
   //lcd.setCursor(0, 0);lcd.print(F("HCH  "));
   lcd.setCursor(0, 1);lcd.print(F("Mode:"));
   if (heatcoolFlag) {lcd.setCursor(6, 0);lcd.print(F("HEAT"));
