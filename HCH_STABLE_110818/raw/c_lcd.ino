@@ -58,7 +58,7 @@ void updateLCD(){
     lcd.setCursor(14, 0);lcd.print(F("EVE"));
   }
 
-  if (runMode!=0) {
+  if ((runMode>0) && (runMode<=maxRunMode)) {
     //lcd.setCursor(5, 1);lcd.print(F("Config  "));
     lcd.setCursor(5, 1);lcd.print(runMode,DEC);
     b1 = (unsigned char) (setT / 100); // two decimals now...

@@ -21,7 +21,7 @@ void loop() {
   //}
 
   //eclient.flush();
-
+  if (runMode>2) {runMode=0;} // very odd behavior where runMode = 180???
   timer.run();  // timer initiation...
   wdt_reset();
 } // end main loop

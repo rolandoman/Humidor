@@ -36,6 +36,7 @@ const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update 
 const unsigned long updateDaytimeInterval = (60L * 1000L); // Every 1 minute update time of day
 
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
+unsigned char maxRunMode = 2;
 // also need to be able to change the "fruitFlag" so light can go on and off during daytime
 
 // Network Globals
@@ -70,9 +71,9 @@ boolean fruitFlag = false;  // used to determine whether the LED light is turned
 LiquidCrystal_I2C lcd(0x27, 20, 4);  // Set the LCD I2C address
 
 // initiate the buttons
-Button topB(topButton, false, false, 10);    //Declare the button with no pullups, high on press, and 50ms debounce
-Button midB(midButton, false, false, 10);
-Button botB(botButton, false, false, 10);
+Button topB(topButton, false, false, 50);    //Declare the button with no pullups, high on press, and 50ms debounce
+Button midB(midButton, false, false, 50);
+Button botB(botButton, false, false, 50);
 
 EthernetClient eclient; // Instantiate the Ethernet Client Library
 
