@@ -63,11 +63,13 @@ void updateLCD(){
     lcd.setCursor(5, 1);lcd.print(runMode,DEC);
     b1 = (unsigned char) (setT / 100); // two decimals now...
     b2 = (unsigned char) (setT - (b1 * 100));
-    lcd.setCursor(0, 2);lcd.print(F("setT="));lcd.setCursor(5, 2);lcd.print(b1);
-    lcd.setCursor(7, 2);lcd.print(F("."));lcd.setCursor(8, 2);lcd.print(b2);
-    lcd.setCursor(10, 2);lcd.print(char(degrees_C_char));  //moved to allow for 2 decimals
-    lcd.setCursor(0, 3);lcd.print(F("setH="));lcd.setCursor(5, 3);lcd.print(setH);
-    lcd.setCursor(7, 3);lcd.print(F("%"));
+    lcd.setCursor(0,2);lcd.print(F("setT="));lcd.setCursor(5, 2);lcd.print(b1);
+    lcd.setCursor(7,2);lcd.print(F("."));lcd.setCursor(8, 2);lcd.print(b2);
+    lcd.setCursor(10,2);lcd.print(char(degrees_C_char));  //moved to allow for 2 decimals
+    lcd.setCursor(0,3);lcd.print(F("setH="));lcd.setCursor(5, 3);lcd.print(setH);
+    lcd.setCursor(7,3);lcd.print(F("%"));
+    lcd.setCursor(13,3);
+    if (fruitFlag) {lcd.print("Fruit  ");} else {lcd.print("noFruit");}
   }
 
   switch (runMode) {
@@ -76,8 +78,8 @@ void updateLCD(){
       lcd.setCursor(12, 3);lcd.print(F("  "));
       break;
     case 2:
-      lcd.setCursor(12, 2);lcd.print(F("  "));
-      lcd.setCursor(12, 3);lcd.print(F("<-"));
+      lcd.setCursor(10, 2);lcd.print(F("  "));
+      lcd.setCursor(10, 3);lcd.print(F("<-"));
       break;
     case 0:
       //lcd.clear();
