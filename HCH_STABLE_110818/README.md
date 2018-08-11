@@ -6,4 +6,6 @@ if this works, then run the avrdude script
 
 run: bash UPLOAD.sh
 
-This version expands on 100818 
+This version expands on 100818
+Menus restored after strange variable corruption with runMode variable
+seems to be stable now after more rigorous checking
