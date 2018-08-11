@@ -8,7 +8,8 @@ void setup() {
   ioSetup();  // setup which arduino pins are INPUT, and OUTPUT...
   delay(250); // give the ethernet module time to boot up: This was soooo crucial!!!
   Ethernet.begin(mac, ip, dnServer, gateway, subnet);
-  delay(1000);
+  eclient.setTimeout(100);
+  delay(500);
   // setup the temp and humidity sensors
   dht1.begin();dht2.begin();dht3.begin();
 

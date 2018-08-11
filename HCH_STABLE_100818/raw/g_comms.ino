@@ -71,7 +71,7 @@ void sendData() {
     eclient.print(data);
     eclient.println();
 
-    eclient.setTimeout(50);
+    //eclient.setTimeout(50);
     netFlag = true;
     delay(10);
     eclient.flush();
