@@ -64,5 +64,4 @@ void sendData() {
   udp.print(data);
   udp.endPacket();
 
-  }
 }
