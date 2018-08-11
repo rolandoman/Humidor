@@ -35,7 +35,7 @@ const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measur
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (60L * 1000L); // Every 1 minute update time of day
 
-byte runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
+unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
 // also need to be able to change the "fruitFlag" so light can go on and off during daytime
 
 // Network Globals
@@ -50,13 +50,13 @@ IPAddress subnet(255, 255, 255, 0);
 
 // globals to save space as 10x real values... used for PID
 unsigned int curT1=0, curT2=0, curT=0;
-unsigned int curH1=0, curH2=0, curH=0;
+unsigned char curH1=0, curH2=0, curH=0;
 float Erf, intErf=0;
 // Beginning of active controls, these are the set points for the temp and humidity
 unsigned int setT = 2550; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
-unsigned int setH = 75; // initial set points for feedback
+unsigned char setH = 75; // initial set points for feedback
 
-unsigned int heaterPower = 0; // make sure the heater starts in the off position
+unsigned char heaterPower = 0; // make sure the heater starts in the off position
 boolean heatcoolFlag = false;
 
 boolean lightFlag = false;  // should we turn on the LED
@@ -70,9 +70,9 @@ boolean fruitFlag = false;  // used to determine whether the LED light is turned
 LiquidCrystal_I2C lcd(0x27, 20, 4);  // Set the LCD I2C address
 
 // initiate the buttons
-Button topB(topButton, false, false, 50);    //Declare the button with no pullups, high on press, and 50ms debounce
-Button midB(midButton, false, false, 50);
-Button botB(botButton, false, false, 50);
+Button topB(topButton, false, false, 10);    //Declare the button with no pullups, high on press, and 50ms debounce
+Button midB(midButton, false, false, 10);
+Button botB(botButton, false, false, 10);
 
 EthernetClient eclient; // Instantiate the Ethernet Client Library
 
