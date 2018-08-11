@@ -8,13 +8,13 @@
 void isDaytime () {
   //eclient.flush();eclient.stop();
   // Decided to choose my own webserver for simplicity
-  if (eclient.connect("rmclarke.ca", 80))  {
+  if (eclient.connect(F("rmclarke.ca"), 80))  {
     // Make an HTTP 1.1 request which is missing a Host: header
     // compliant servers are required to answer with an error that includes
     // a Date: header.
-    eclient.println("GET / HTTP/1.1");
-    eclient.println("Host: rmclarke.ca");
-    eclient.println("Connection: close");
+    eclient.println(F("GET / HTTP/1.1"));
+    eclient.println(F("Host: rmclarke.ca"));
+    eclient.println(F("Connection: close"));
     eclient.println();
 
     char buf[5];      // temporary buffer for characters
