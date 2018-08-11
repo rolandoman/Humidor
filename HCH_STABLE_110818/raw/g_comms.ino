@@ -11,8 +11,8 @@ void sendData() {
   // close any connection before send a new request.
   // This will free the socket on the Ethernet shield
   eclient.flush();eclient.stop();
-  unsigned int Tb1 = (unsigned int) (curT1 / 100);
-  unsigned int Tb2 = (unsigned int) ((unsigned int)curT1 - ((unsigned int)Tb1 * 100));
+  unsigned char Tb1 = (unsigned char) (curT1 / 100);
+  unsigned char Tb2 = (unsigned char) ((unsigned int)curT1 - ((unsigned int)Tb1 * 100));
   // if there's a successful connection:
   if (eclient.connect("rmclarke.ca", 8086)) {
 
@@ -21,8 +21,8 @@ void sendData() {
     snprintf(databuffer, 3, "%02d", Tb1);strcat(data, databuffer);strcat(data, ".");
     snprintf(databuffer, 3, "%02d", Tb2);strcat(data, databuffer);strcat(data, "\n");
 
-    Tb1 = (unsigned int) (curT2 / 100);
-    Tb2 = (unsigned int) ((unsigned int)curT2 - ((unsigned int)Tb1 * 100)) ;
+    Tb1 = (unsigned char) (curT2 / 100);
+    Tb2 = (unsigned char) ((unsigned int)curT2 - ((unsigned int)Tb1 * 100)) ;
     //data.concat(String("temp2,owner=rolo,group=home,device=hch2 value=")+String(Tb1,DEC)+"."+String(Tb2,DEC)+"\n");
     strcat(data, "temp2,owner=rolo,group=home,device=hch2 value=");
     snprintf(databuffer, 3, "%02d", Tb1);strcat(data, databuffer);strcat(data, ".");
@@ -52,8 +52,8 @@ void sendData() {
     strcat(data, "light,owner=rolo,group=home,device=hch2 value=");
     snprintf(databuffer, 3, "%d", lightFlag);strcat(data, databuffer);strcat(data, "\n");
 
-    Tb1 = (unsigned int) (setT / 100);
-    Tb2 = (unsigned int) ((unsigned int)setT - ((unsigned int)Tb1 * 100)) ;
+    Tb1 = (unsigned char) (setT / 100);
+    Tb2 = (unsigned char) ((unsigned int)setT - ((unsigned int)Tb1 * 100)) ;
     //data.concat(String("setT,owner=rolo,group=home,device=hch2 value=")+String(Tb1,DEC)+"."+String(Tb2,DEC)+"\n");
     strcat(data, "setT,owner=rolo,group=home,device=hch2 value=");
     snprintf(databuffer, 3, "%02d", Tb1);strcat(data, databuffer);strcat(data, ".");
