@@ -11,9 +11,9 @@ void sendData() {
   // if there's a successful connection:
   if (eclient.connect("rmclarke.ca", 8086)) {
 
-    char outBuf[30];
+    char outBuf[24];
     char databuffer[6];
-    char data[512]; // need to end reliance on arduino 'Strings'
+    char data[500]; // need to end reliance on arduino 'Strings'
 
     //String data = String("temp1,owner=rolo,group=home,device=hch2 value=")+String(Tb1,DEC)+"."+String(Tb2,DEC)+"\n";
     strcpy(data, "temp1,owner=rolo,group=home,device=hch2 value=");
@@ -37,19 +37,19 @@ void sendData() {
 
     //data.concat(String("heatcool,owner=rolo,group=home,device=hch2 value=")+String(heatcoolFlag,DEC)+"\n");
     strcat(data, "heatcool,owner=rolo,group=home,device=hch2 value=");
-    snprintf(databuffer, 2, "%d", heatcoolFlag);strcat(data, databuffer);strcat(data, "\n");
+    snprintf(databuffer, 3, "%d", heatcoolFlag);strcat(data, databuffer);strcat(data, "\n");
 
     //data.concat(String("mist,owner=rolo,group=home,device=hch2 value=")+String(mistFlag,DEC)+"\n");
     strcat(data, "mist,owner=rolo,group=home,device=hch2 value=");
-    snprintf(databuffer, 2, "%d", mistFlag);strcat(data, databuffer);strcat(data, "\n");
+    snprintf(databuffer, 3, "%d", mistFlag);strcat(data, databuffer);strcat(data, "\n");
 
     //data.concat(String("hpower,owner=rolo,group=home,device=hch2 value=")+String(heaterPower,DEC)+"\n");
     strcat(data, "hpower,owner=rolo,group=home,device=hch2 value=");
-    snprintf(databuffer, 4, "%03d", heaterPower);strcat(data, databuffer);strcat(data, "\n");
+    snprintf(databuffer, 5, "%03d", heaterPower);strcat(data, databuffer);strcat(data, "\n");
 
     //data.concat(String("light,owner=rolo,group=home,device=hch2 value=")+String(lightFlag,DEC)+"\n");
     strcat(data, "light,owner=rolo,group=home,device=hch2 value=");
-    snprintf(databuffer, 2, "%d", lightFlag);strcat(data, databuffer);strcat(data, "\n");
+    snprintf(databuffer, 3, "%d", lightFlag);strcat(data, databuffer);strcat(data, "\n");
 
     Tb1 = (unsigned int) (setT / 100);
     Tb2 = (unsigned int) ((unsigned int)setT - ((unsigned int)Tb1 * 100)) ;
@@ -66,7 +66,8 @@ void sendData() {
     eclient.println(F("Host: rmclarke.ca"));
     eclient.println(F("Connection: close"));
     eclient.println(F("Content-Type: multipart/form-data"));
-    sprintf(outBuf,"Content-Length: %u\r\n",strlen(data));eclient.println(outBuf);
+    sprintf(outBuf,"Content-Length: %u\r\n",strlen(data));
+    eclient.println(outBuf);
     eclient.print(data);
     eclient.println();
 
