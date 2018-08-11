@@ -77,10 +77,10 @@ void updateLCD(){
   switch (runMode) {
     case 1:
       lcd.setCursor(12, 2);lcd.print(F("<-"));
-      lcd.setCursor(12, 3);lcd.print(F("  "));
+      lcd.setCursor(10, 3);lcd.print(F("  "));
       break;
     case 2:
-      lcd.setCursor(10, 2);lcd.print(F("  "));
+      lcd.setCursor(12, 2);lcd.print(F("  "));
       lcd.setCursor(10, 3);lcd.print(F("<-"));
       break;
     case 0:

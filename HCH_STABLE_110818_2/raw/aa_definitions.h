@@ -30,10 +30,10 @@ byte degC_c[8] = {B01000,B10100,B01000,B00011,B00100,B00100,B00011,B00000};
 #define midButton 4   // middle increase button connected to digital pin 4
 #define botButton 8   // bottom decrease button connected to digital pin 8
 
-const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minute upload sensor data, and check time
+const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minute upload sensor data
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
-const unsigned long updateDaytimeInterval = (60L * 1000L); // Every 1 minute update time of day
+const unsigned long updateDaytimeInterval = (15L * 1000L); // Every 15 seconds update time of day
 
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
 unsigned char maxRunMode = 2;
@@ -46,6 +46,9 @@ IPAddress ip(192, 168, 1, 223); // just in case DHCP doesn't work
 IPAddress dnServer(192, 168, 1, 254);
 IPAddress gateway(192, 168, 1, 254);
 IPAddress subnet(255, 255, 255, 0);
+
+byte influxserver[] = {35,197,35,96};
+unsigned int udpport = 8089;
 
 // Sensor Globals
 #define DHTTYPE DHT22   // DHT 22  (AM2302)
@@ -77,6 +80,7 @@ Button midB(midButton, false, false, 50);
 Button botB(botButton, false, false, 50);
 
 EthernetClient eclient; // Instantiate the Ethernet Client Library
+EthernetUDP Udp;  // try sending influx data using UDP packets
 
 byte Hours=0;
 byte Minutes=0;

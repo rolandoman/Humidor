@@ -10,6 +10,7 @@ void setup() {
   Ethernet.begin(mac, ip, dnServer, gateway, subnet);
   eclient.setTimeout(100);
   delay(500);
+  udp.begin(udpport);
   // setup the temp and humidity sensors
   dht1.begin();dht2.begin();dht3.begin();
 
