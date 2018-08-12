@@ -80,7 +80,7 @@ Button midB(midButton, false, false, 50);
 Button botB(botButton, false, false, 50);
 
 EthernetClient eclient; // Instantiate the Ethernet Client Library
-EthernetUDP udp;  // try sending influx data using UDP packets
+//EthernetUDP udp;  // try sending influx data using UDP packets
 
 int Hours=0;
 int Minutes=0;
