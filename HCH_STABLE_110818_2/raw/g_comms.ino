@@ -19,22 +19,21 @@ void sendData() {
   snprintf(databuffer, 3, "%02d", Tb1);strcat(data, databuffer);strcat(data, ".");
   snprintf(databuffer, 3, "%02d", Tb2);strcat(data, databuffer);strcat(data, "\n");
 
+  strcat(data, "hum1,owner=rolo,group=home,device=hch2 value=");
+  snprintf(databuffer, 3, "%02d", curH1);strcat(data, databuffer);strcat(data, "\n");
+
+  strcat(data, "hum2,owner=rolo,group=home,device=hch2 value=");
+  snprintf(databuffer, 3, "%02d", curH2);strcat(data, databuffer);strcat(data, "\n");
+
+  strcat(data, "heatcool,owner=rolo,group=home,device=hch2 value=");
+  snprintf(databuffer, 3, "%d", heatcoolFlag);strcat(data, databuffer);strcat(data, "\n");
+
+  strcat(data, "mist,owner=rolo,group=home,device=hch2 value=");
+  snprintf(databuffer, 3, "%d", mistFlag);strcat(data, databuffer);strcat(data, "\n");
+
   udp.beginPacket(influxserver, udpport);
   udp.print(data);
   udp.endPacket();
-
-
-  //strcat(data, "hum1,owner=rolo,group=home,device=hch2 value=");
-  //snprintf(databuffer, 3, "%02d", curH1);strcat(data, databuffer);strcat(data, "\n");
-
-  //strcat(data, "hum2,owner=rolo,group=home,device=hch2 value=");
-  //snprintf(databuffer, 3, "%02d", curH2);strcat(data, databuffer);strcat(data, "\n");
-
-  //strcat(data, "heatcool,owner=rolo,group=home,device=hch2 value=");
-  //snprintf(databuffer, 3, "%d", heatcoolFlag);strcat(data, databuffer);strcat(data, "\n");
-
-  //strcat(data, "mist,owner=rolo,group=home,device=hch2 value=");
-  //snprintf(databuffer, 3, "%d", mistFlag);strcat(data, databuffer);strcat(data, "\n");
 
   //strcat(data, "hpower,owner=rolo,group=home,device=hch2 value=");
   //snprintf(databuffer, 5, "%03d", heaterPower);strcat(data, databuffer);strcat(data, "\n");
