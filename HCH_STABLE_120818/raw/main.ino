@@ -6,9 +6,7 @@ void loop() {
 
   if (topB.wasPressed()) {  //If the button was pressed, rotate runMode
     runMode++;
-    if (runMode>maxRunMode) {
-      runMode=0;
-    }
+    if (runMode>maxRunMode) {runMode=0;}
     lcd.clear();
     updateLCD();
   }
@@ -27,7 +25,9 @@ void loop() {
       setH = setH - 1;
       updateLCD();}
   } else if (runMode==3) {
-
+    if (midB.wasPressed() || botB.wasPressed()) {
+      if (fruitFlag) {fruitFlag=false;} else {fruitFlag=true;}
+    }
   }
 
   //eclient.flush();
