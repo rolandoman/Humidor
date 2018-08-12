@@ -11,7 +11,7 @@ void sendData() {
 
   strcpy(data, "temp1,owner=rolo,group=home,device=hch2 value=");
   snprintf(databuffer, 3, "%02d", Tb1);strcat(data, databuffer);strcat(data, ".");
-  snprintf(databuffer, 3, "%02d", Tb2);strcat(data, databuffer);
+  snprintf(databuffer, 3, "%02d", Tb2);strcat(data, databuffer);strcat(data, "\n");
 
   Tb1 = (unsigned char) (curT2 / 100);
   Tb2 = (unsigned char) ((unsigned int)curT2 - ((unsigned int)Tb1 * 100)) ;
