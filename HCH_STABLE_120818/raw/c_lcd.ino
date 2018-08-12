@@ -86,6 +86,7 @@ void updateLCD(){
     case 3:
       lcd.setCursor(12, 2);lcd.print(F("  "));
       lcd.setCursor(10, 3);lcd.print(F("->"));
+      break;
     case 0:
       //lcd.clear();
       lcd.setCursor(5,1);lcd.print(F("Run     "));
