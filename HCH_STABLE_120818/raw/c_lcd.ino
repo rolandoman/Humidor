@@ -71,7 +71,7 @@ void updateLCD(){
     lcd.setCursor(0,3);lcd.print(F("setH="));lcd.setCursor(5, 3);lcd.print(setH);
     lcd.setCursor(7,3);lcd.print(F("%"));
     lcd.setCursor(13,3);
-    if (fruitFlag) {lcd.print("Fruit  ");} else {lcd.print("noFruit");}
+    if (fruitFlag) {lcd.print("  Fruit");} else {lcd.print("noFruit");}
   }
 
   switch (runMode) {
