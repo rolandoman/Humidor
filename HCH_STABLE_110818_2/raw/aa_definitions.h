@@ -30,13 +30,13 @@ byte degC_c[8] = {B01000,B10100,B01000,B00011,B00100,B00100,B00011,B00000};
 #define midButton 4   // middle increase button connected to digital pin 4
 #define botButton 8   // bottom decrease button connected to digital pin 8
 
-const unsigned long uploadInterval = (60L * 1000L);  // Every 1 minute upload sensor data
+const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minutes upload sensor data
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
-const unsigned long updateDaytimeInterval = (15L * 1000L); // Every 15 seconds update time of day
+const unsigned long updateDaytimeInterval = (30L * 1000L); // Every 15 seconds update time of day
 
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
-unsigned char maxRunMode = 2;
+unsigned char maxRunMode = 3;
 unsigned char oldRunMode = 0;
 // also need to be able to change the "fruitFlag" so light can go on and off during daytime
 

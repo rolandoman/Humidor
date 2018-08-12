@@ -61,8 +61,8 @@ void updateLCD(){
   }
 
   if ((runMode>0) && (runMode<=maxRunMode)) {
-    //lcd.setCursor(5, 1);lcd.print(F("Config  "));
-    lcd.setCursor(5, 1);lcd.print(runMode,DEC);
+    lcd.setCursor(5, 1);lcd.print(F("Config  "));
+    //lcd.setCursor(5, 1);lcd.print(runMode,DEC);
     b1 = (unsigned char) (setT / 100); // two decimals now...
     b2 = (unsigned char) (setT - (b1 * 100));
     lcd.setCursor(0,2);lcd.print(F("setT="));lcd.setCursor(5, 2);lcd.print(b1);
@@ -83,9 +83,12 @@ void updateLCD(){
       lcd.setCursor(12, 2);lcd.print(F("  "));
       lcd.setCursor(10, 3);lcd.print(F("<-"));
       break;
+    case 3:
+      lcd.setCursor(12, 2);lcd.print(F("  "));
+      lcd.setCursor(10, 3);lcd.print(F("->"));
     case 0:
       //lcd.clear();
-      lcd.setCursor(5,1);lcd.print(F("Run  "));
+      lcd.setCursor(5,1);lcd.print(F("Run     "));
       b1 = (unsigned char) (curT1 / 100) ; // two decimals now...
       b2 = (unsigned char) (curT1 - (b1 * 100)) ;
       lcd.setCursor(0, 2);lcd.print(F("T1="));lcd.setCursor(3, 2);lcd.print(b1);
