@@ -18,7 +18,7 @@ void lcdSetup(void) {
 
 void updateLCD(){
 
-  readEEPROMS();
+  readEEPROM();
 
   unsigned char b1; // two decimals now...
   unsigned char b2;

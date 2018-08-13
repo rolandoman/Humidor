@@ -1,4 +1,4 @@
-void readEEPROMS() {
+void readEEPROM() {
   int eeAddress = 0;
 
   EEPROM.get(eeAddress, setT);
@@ -9,7 +9,7 @@ void readEEPROMS() {
   eeAddress += sizeof(fruitFlag);
 }
 
-void updateEEPROMS() {
+void updateEEPROM() {
   int eeAddress = 0;
 
   EEPROM.put(eeAddress, setT);
