@@ -18,6 +18,7 @@ void lcdSetup(void) {
 
 void updateLCD(){
 
+  updateEEPROM(); // this is first time only, so that EEPROM has OK values
   readEEPROM();
 
   unsigned char b1; // two decimals now...
