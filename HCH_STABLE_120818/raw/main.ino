@@ -12,22 +12,31 @@ void loop() {
   }
   if (runMode==1) { // Edit the setT of the feedback routine
     if (midB.wasPressed()) {
-      setT = setT + 10;updateLCD();
+      setT = setT + 10;
+      updateLCD();
+      updateEEPROM();
     }
     if (botB.wasPressed()) {
-      setT = setT - 10;updateLCD();
+      setT = setT - 10;
+      updateLCD();
+      updateEEPROM();
     }
   }  else if (runMode==2) { // Edit the setH of the feedback routine
     if (midB.wasPressed()) {
-      setH = setH + 1;updateLCD();
+      setH = setH + 1;
+      updateLCD();
+      updateEEPROM();
     }
     if (botB.wasPressed()) {
-      setH = setH - 1;updateLCD();
+      setH = setH - 1;
+      updateLCD();
+      updateEEPROM();
     }
   } else if (runMode==3) {
     if (midB.wasPressed() || botB.wasPressed()) {
       if (fruitFlag) {fruitFlag=false;} else {fruitFlag=true;}
       updateLCD();
+      updateEEPROM();
     }
   }
 

@@ -8,8 +8,8 @@ void ioSetup(void) {
   pinMode(lightPin, OUTPUT);     // setup LED pin for relay control
   pinMode(mistPin, OUTPUT);     // setup mist pin for relay control
   pinMode(waterPumpPin, OUTPUT);     // setup Water pump pin for output to small h-bridge
-  pinMode(peltierPwmPin, OUTPUT);   // 
-  pinMode(heatCoolPin, OUTPUT);   // 
+  pinMode(peltierPwmPin, OUTPUT);   //
+  pinMode(heatCoolPin, OUTPUT);   //
   // initial settings for the relays
   digitalWrite(lightPin, Relay_OFF);   // default setting on boot should be off
   digitalWrite(mistPin, Relay_OFF);   // default setting on boot should be off

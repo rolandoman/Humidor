@@ -1,0 +1,3 @@
+void readEEPROMS() {}
+
+voide updateEEPROMS() {}

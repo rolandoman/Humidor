@@ -26,4 +26,3 @@ ISR(WDT_vect) { // Watchdog timer interrupt.
 // prevent a reset.
   resetFunc();  //call reset
 }
-
