@@ -26,3 +26,4 @@ Should follow this format as more and more functions or tests are added to the p
 #include <LiquidCrystal_I2C.h>
 #include <Button.h>
 #include <EEPROM.h>
+#include <MD5.h>
