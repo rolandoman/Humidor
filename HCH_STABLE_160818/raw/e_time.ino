@@ -31,13 +31,17 @@ void isDaytime () {
     // a Date: header.
 
     strcpy(getLine, "/?dev=hch2&setT=");
-    strcat(getLine, String(setT,DEC));
+    snprintf(databuffer, 6, "%d", setT);
+    strcat(getLine, databuffer);
     strcat(getLine, "&setH=");
-    strcat(getLine, String(setH,DEC));
+    snprintf(databuffer, 4, "%d", setH);
+    strcat(getLine, databuffer);
     strcat(getLine, "&fruit=");
-    strcat(getLine, String(fruitFlag,DEC));
+    snprintf(databuffer, 3, "%d", fruitFlag);
+    strcat(getLine, databuffer);
     strcat(getLine, "&lastupdate=");
-    strcat(getLine, String(lastupdate,DEC));
+    snprintf(databuffer, 12, "%d", lastupdate);
+    strcat(getLine, databuffer);
     strcat(getLine, "&otp=");
     strcat(getLine, md5str);
     sprintf(outBuf,"GET %s HTTP/1.1",getLine);
