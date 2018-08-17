@@ -98,29 +98,48 @@ void isDaytime () {
     } //else {Serial.println(F("No Date"));}
 
     // still inside the request - here is where we parse the rest of the header
-    char buf2[20];
-    char s_dev[5],s_setT[5],s_setH[3],s_fruit[2],s_lastupdate[12],s_otp[10];
+    char buf2[20];char temp[20];
+    char s_dev[5];
+    unsigned int s_setT
+    unsigned char s_setH;
+    boolean s_fruit;
+    unsigned long s_lastupdate;
+    char s_otp[10];
     if (eclient.find((char *)"\r\niot: ")) {
       // OK, server is communicating, parse the message
+      // this should work no matter what order the variables are received
       if (eclient.find((char *)"dev=")) {
         eclient.readBytes(buf2, 4);
-        snprintf(s_dev,5,"%s",buf2);
-      } else if (eclient.find((char *)"setT=")) {
+        snprintf(s_dev,6,"%s",buf2);
+      }
+      if (eclient.find((char *)"setT=")) {
         eclient.readBytes(buf2, 4);
-        snprintf(s_setT,5,"%s",buf2);
-      } else if (eclient.find((char *)"setH=")) {
+        snprintf(temp,6,"%s",buf2);
+        s_setT = (unsigned int) strtoi (temp, NULL, 0);
+      }
+      if (eclient.find((char *)"setH=")) {
         eclient.readBytes(buf2, 2);
-        snprintf(s_setH,3,"%s",buf2);
-      } else if (eclient.find((char *)"fruit=")) {
+        snprintf(temp,4,"%s",buf2);
+        s_setH = (unsigned char) strtoi (temp, NULL, 0);
+      }
+      if (eclient.find((char *)"fruit=")) {
         eclient.readBytes(buf2, 1);
-        snprintf(s_fruit,2,"%s",buf2);
-      } else if (eclient.find((char *)"lastupdate=")) {
+        snprintf(temp,3,"%s",buf2);
+        s_fruit = (boolean) strtoi (temp, NULL, 0);
+      }
+      if (eclient.find((char *)"lastupdate=")) {
         eclient.readBytes(buf2, 10);
-        snprintf(s_lastupdate,12,"%s",buf2);
-      } else if (eclient.find((char *)"otp=")) {
+        snprintf(temp,12,"%s",buf2);
+        s_lastupdate = strtoul (temp, NULL, 0);
+      }
+      if (eclient.find((char *)"otp=")) {
         eclient.readBytes(buf2, 8);
         snprintf(s_otp,10,"%s",buf2);
       }
+
+      // compare who's lastupdate is bigger, then make a choice
+      
+
     } // else { no iot found }
 
     netFlag = true;
