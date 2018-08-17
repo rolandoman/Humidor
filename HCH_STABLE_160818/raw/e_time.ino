@@ -16,10 +16,17 @@ void isDaytime () {
 
   snprintf(databuffer, 6, "%d", syncnum);
   strcat(prehash, databuffer);
-  unsigned char* hash=MD5::make_hash(prehash);
+
+
+
+
+
+
+
+  //unsigned char* hash=MD5::make_hash(prehash);
   //generate the digest (hex encoding) of our hash
   //char *md5str = MD5::make_digest(hash, 16);
-  free(hash);
+  //free(hash);
   //free(md5str);
 
   //print it on our serial monitor
@@ -122,7 +129,5 @@ void isDaytime () {
   // adjust these numbers to change lighting time. 6am to 7pm initially.
   if ((Hours>=6) && (Hours<19))  {isDay = true;} else {isDay=false;}
   if (isDay && fruitFlag) {lightFlag = true;} else {lightFlag = false;}
-
-  //free(md5str);
-  //free(hash);
+  
 }
