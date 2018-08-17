@@ -2,7 +2,7 @@
 /*          rmclarke.ca influxdb comm function         */
 void sendData() {
   // initialize comms variables
-  char outBuf[24];
+  //char outBuf[24];
   char databuffer[6];
   char data[500]; // need to end reliance on arduino 'Strings'
 

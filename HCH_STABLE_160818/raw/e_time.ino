@@ -34,10 +34,10 @@ void isDaytime () {
     snprintf(databuffer, 3, "%u", fruitFlag);
     strcat(getLine, databuffer);
     strcat(getLine, "&lastupdate=");
-    snprintf(databuffer, 12, "%u", lastupdate);
+    snprintf(databuffer, 12, "%lu", lastupdate);
     strcat(getLine, databuffer);
     strcat(getLine, "&otp=");
-    snprintf(databuffer, 12, "%u", otp);
+    snprintf(databuffer, 12, "%lu", otp);
     strcat(getLine, databuffer);
     sprintf(outBuf,"GET %s HTTP/1.1",getLine);
 
