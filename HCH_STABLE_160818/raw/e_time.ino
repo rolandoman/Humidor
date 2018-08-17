@@ -10,9 +10,9 @@ void isDaytime () {
   // Decided to choose my own webserver for simplicity
 
   char getLine[128];char outBuf[142];
-  unsigned long window = unixtime / 100 ;
+  unsigned long syncnum = unixtime / 100 ;
   char prehash[20];strcpy(prehash, "hch2poop");
-  strcat(prehash, String(window,DEC));
+  strcat(prehash, String(syncnum,DEC));
   unsigned char* hash=MD5::make_hash(prehash);
   //generate the digest (hex encoding) of our hash
   char *md5str = MD5::make_digest(hash, 16);
@@ -28,17 +28,17 @@ void isDaytime () {
     // compliant servers are required to answer with an error that includes
     // a Date: header.
 
-    strcpy(pageAdd, "/?dev=hch2&setT=");
-    strcat(pageAdd, String(setT,DEC));
-    strcat(pageAdd, "&setH=");
-    strcat(pageAdd, String(setH,DEC));
-    strcat(pageAdd, "&fruit=");
-    strcat(pageAdd, String(fruitFlag,DEC));
-    strcat(pageAdd, "&lastupdate=");
-    strcat(pageAdd, String(lastupdate,DEC));
-    strcat(pageAdd, "&otp=");
-    strcat(pageAdd, md5str);
-    sprintf(outBuf,"GET %s HTTP/1.1",pageAdd);
+    strcpy(getLine, "/?dev=hch2&setT=");
+    strcat(getLine, String(setT,DEC));
+    strcat(getLine, "&setH=");
+    strcat(getLine, String(setH,DEC));
+    strcat(getLine, "&fruit=");
+    strcat(getLine, String(fruitFlag,DEC));
+    strcat(getLine, "&lastupdate=");
+    strcat(getLine, String(lastupdate,DEC));
+    strcat(getLine, "&otp=");
+    strcat(getLine, md5str);
+    sprintf(outBuf,"GET %s HTTP/1.1",getLine);
 
     //eclient.println("GET /?dev=hch2&setT=&setH=&fruit=&lastupdate=&otp= HTTP/1.1");
     eclient.println(outBuf);
