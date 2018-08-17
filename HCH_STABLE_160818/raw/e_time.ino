@@ -18,24 +18,7 @@ void isDaytime () {
   strcat(prehash, databuffer);
   size_t numBytes = sizeof(prehash) - 1;
 
-  uint32_t checksum = CRC32::calculate(prehash, numBytes);
-
-
-
-
-
-  //unsigned char* hash=MD5::make_hash(prehash);
-  //generate the digest (hex encoding) of our hash
-  //char *md5str = MD5::make_digest(hash, 16);
-  //free(hash);
-  //free(md5str);
-
-  //print it on our serial monitor
-  //Serial.println(md5str);
-  //Give the Memory back to the System if you run the md5 Hash generation in a loop
-  //free(md5str);
-  //free dynamically allocated 16 byte hash from make_hash()
-  //free(hash);
+  uint32_t otp = CRC32::calculate(prehash, numBytes);
 
   if (eclient.connect("rmclarke.ca", 80))  {
     // Make an HTTP 1.1 request which is missing a Host: header
@@ -55,7 +38,7 @@ void isDaytime () {
     snprintf(databuffer, 12, "%d", lastupdate);
     strcat(getLine, databuffer);
     strcat(getLine, "&otp=");
-    //strcat(getLine, md5str);
+    strcat(getLine, otp;
     sprintf(outBuf,"GET %s HTTP/1.1",getLine);
 
     //eclient.println("GET /?dev=hch2&setT=&setH=&fruit=&lastupdate=&otp= HTTP/1.1");
