@@ -115,17 +115,17 @@ void isDaytime () {
       if (eclient.find((char *)"setT=")) {
         eclient.readBytes(buf2, 4);
         snprintf(temp,6,"%s",buf2);
-        s_setT = (unsigned int) strtoi (temp, NULL, 0);
+        s_setT = (unsigned int) strtoul (temp, NULL, 0);
       }
       if (eclient.find((char *)"setH=")) {
         eclient.readBytes(buf2, 2);
         snprintf(temp,4,"%s",buf2);
-        s_setH = (unsigned char) strtoi (temp, NULL, 0);
+        s_setH = (unsigned char) strtoul (temp, NULL, 0);
       }
       if (eclient.find((char *)"fruit=")) {
         eclient.readBytes(buf2, 1);
         snprintf(temp,3,"%s",buf2);
-        s_fruit = (boolean) strtoi (temp, NULL, 0);
+        s_fruit = (boolean) strtoul (temp, NULL, 0);
       }
       if (eclient.find((char *)"lastupdate=")) {
         eclient.readBytes(buf2, 10);
