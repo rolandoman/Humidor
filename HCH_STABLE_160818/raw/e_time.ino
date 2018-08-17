@@ -10,9 +10,11 @@ void isDaytime () {
   // Decided to choose my own webserver for simplicity
 
   char getLine[128];char outBuf[142];
+  char databuffer[6];
   unsigned long syncnum = unixtime / 100 ;
   char prehash[20];strcpy(prehash, "hch2poop");
-  strcat(prehash, String(syncnum,DEC));
+  snprintf(databuffer, 6, "%d", syncnum);
+  strcat(prehash, databuffer);
   unsigned char* hash=MD5::make_hash(prehash);
   //generate the digest (hex encoding) of our hash
   char *md5str = MD5::make_digest(hash, 16);
