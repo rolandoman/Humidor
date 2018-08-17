@@ -2,7 +2,8 @@
  * © Francesco Potortì 2013 - GPLv3
  *
  * Send an HTTP packet and wait for the response, return the Unix time
- * Adapted by Roland Clarke to merely return a boolean daytime indicator
+ * Adapted by Roland Clarke to also return Hours and Minutes and Ethernet
+ * eventually to handle all the subtleties of IoT command from server
  */
 
 void isDaytime () {
@@ -10,7 +11,7 @@ void isDaytime () {
   // Decided to choose my own webserver for simplicity
 
   char getLine[100];char outBuf[114];
-  char databuffer[8];
+  char databuffer[14];
   unsigned long syncnum = unixtime / 100 ;
   char prehash[24];strcpy(prehash, "hch2poop");
 
@@ -97,7 +98,6 @@ void isDaytime () {
     } //else {Serial.println(F("No Date"));}
 
     // still inside the request - here is where we parse the rest of the header
-
 
     netFlag = true;
   } else {
