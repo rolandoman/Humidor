@@ -30,19 +30,19 @@ void isDaytime () {
     // compliant servers are required to answer with an error that includes
     // a Date: header.
 
-    strcpy(getLine, "/?dev=hch2&setT=");
+    strcpy(getLine, F("/?dev=hch2&setT="));
     snprintf(databuffer, 6, "%d", setT);
     strcat(getLine, databuffer);
-    strcat(getLine, "&setH=");
+    strcat(getLine, F("&setH="));
     snprintf(databuffer, 4, "%d", setH);
     strcat(getLine, databuffer);
-    strcat(getLine, "&fruit=");
+    strcat(getLine, F("&fruit="));
     snprintf(databuffer, 3, "%d", fruitFlag);
     strcat(getLine, databuffer);
-    strcat(getLine, "&lastupdate=");
+    strcat(getLine, F("&lastupdate="));
     snprintf(databuffer, 12, "%d", lastupdate);
     strcat(getLine, databuffer);
-    strcat(getLine, "&otp=");
+    strcat(getLine, F("&otp="));
     strcat(getLine, md5str);
     sprintf(outBuf,"GET %s HTTP/1.1",getLine);
 
