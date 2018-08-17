@@ -80,7 +80,7 @@ void readSensorData() {
 
   unsigned int curH = lround(((float) curH1 + (float)curH2)/2);
 
-  if (curH < abs(setH-5)) {
+  if (curH < (setH-5)) {
     mistFlag = true;
   } else if (curH>setH) {
     mistFlag = false;
