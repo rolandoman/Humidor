@@ -118,4 +118,7 @@ void isDaytime () {
   // adjust these numbers to change lighting time. 6am to 7pm initially.
   if ((Hours>=6) && (Hours<19))  {isDay = true;} else {isDay=false;}
   if (isDay && fruitFlag) {lightFlag = true;} else {lightFlag = false;}
+
+  free(md5str);
+  free(hash);
 }
