@@ -20,6 +20,7 @@ void isDaytime () {
   size_t numBytes = sizeof(prehash) - 1;
 
   uint32_t otp = CRC32::calculate(prehash, numBytes);
+  char dev_otp[10];
 
   if (eclient.connect("rmclarke.ca", 80))  {
     // Make an HTTP 1.1 request compliant servers are required to answer with an error that includes a Date: header.
@@ -37,8 +38,8 @@ void isDaytime () {
     snprintf(databuffer, 12, "%lu", lastupdate);
     strcat(getLine, databuffer);
     strcat(getLine, "&otp=");
-    snprintf(databuffer, 12, "%lX", otp);
-    strcat(getLine, databuffer);
+    snprintf(dev_otp, 12, "%lX", otp);
+    strcat(getLine, dev_otp);
     sprintf(outBuf,"GET %s HTTP/1.1",getLine);
 
     //eclient.println("GET /?dev=hch2&setT=&setH=&fruit=&lastupdate=&otp= HTTP/1.1");
@@ -137,8 +138,17 @@ void isDaytime () {
         snprintf(s_otp,10,"%s",buf2);
       }
 
-      // compare who's lastupdate is bigger, then make a choice
+      // cpmfirm good comms, then compare who's lastupdate is bigger, then make a choice
+      if ((dev_otp == s_otp) && (device == s_dev) && (lastupdate < s_lastupdate)) {
+        // server wins, update my shit and save it
+        lastupdate = s_lastupdate;
+        setT = s_setT;setH = s_setH;
+        fruitFlag = s_fruit;
+        updateEEPROM();
 
+      } else {
+        // I win, do nothing
+      }
 
     } // else { no iot found }
 
