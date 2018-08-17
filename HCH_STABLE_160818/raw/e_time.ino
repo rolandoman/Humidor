@@ -15,7 +15,7 @@ void isDaytime () {
   unsigned long syncnum = unixtime / 100 ;
   char prehash[24];strcpy(prehash, "hch2poop");
 
-  snprintf(databuffer, 10, "%ul", syncnum);
+  snprintf(databuffer, 10, "%lu", syncnum);
   strcat(prehash, databuffer);
   size_t numBytes = sizeof(prehash) - 1;
 
