@@ -15,7 +15,7 @@ void isDaytime () {
   unsigned long syncnum = unixtime / 100 ;
   char prehash[24];strcpy(prehash, "hch2poop");
 
-  snprintf(databuffer, 10, "%d", syncnum);
+  snprintf(databuffer, 10, "%u", syncnum);
   strcat(prehash, databuffer);
   size_t numBytes = sizeof(prehash) - 1;
 
@@ -25,16 +25,16 @@ void isDaytime () {
     // Make an HTTP 1.1 request compliant servers are required to answer with an error that includes a Date: header.
 
     strcpy(getLine, "/?dev=hch2&setT=");
-    snprintf(databuffer, 6, "%d", setT);
+    snprintf(databuffer, 6, "%u", setT);
     strcat(getLine, databuffer);
     strcat(getLine, "&setH=");
-    snprintf(databuffer, 4, "%d", setH);
+    snprintf(databuffer, 4, "%u", setH);
     strcat(getLine, databuffer);
     strcat(getLine, "&fruit=");
-    snprintf(databuffer, 3, "%d", fruitFlag);
+    snprintf(databuffer, 3, "%u", fruitFlag);
     strcat(getLine, databuffer);
     strcat(getLine, "&lastupdate=");
-    snprintf(databuffer, 12, "%d", lastupdate);
+    snprintf(databuffer, 12, "%u", lastupdate);
     strcat(getLine, databuffer);
     strcat(getLine, "&otp=");
     snprintf(databuffer, 12, "%u", otp);
