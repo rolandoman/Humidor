@@ -38,7 +38,8 @@ void isDaytime () {
     snprintf(databuffer, 12, "%d", lastupdate);
     strcat(getLine, databuffer);
     strcat(getLine, "&otp=");
-    strcat(getLine, otp);
+    snprintf(databuffer, 12, "%u", otp);
+    strcat(getLine, databuffer);
     sprintf(outBuf,"GET %s HTTP/1.1",getLine);
 
     //eclient.println("GET /?dev=hch2&setT=&setH=&fruit=&lastupdate=&otp= HTTP/1.1");
