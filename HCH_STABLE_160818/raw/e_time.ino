@@ -12,7 +12,7 @@ void isDaytime () {
     // Make an HTTP 1.1 request which is missing a Host: header
     // compliant servers are required to answer with an error that includes
     // a Date: header.
-    eclient.println(F("GET /?dev=hch2&setT=&setH=&fruit=&lastupdate=&otp= HTTP/1.1"));
+    eclient.println("GET /?dev=hch2&setT=&setH=&fruit=&lastupdate=&otp= HTTP/1.1");
     eclient.println(F("Host: rmclarke.ca"));
     eclient.println(F("Connection: close"));
     eclient.println();
@@ -63,8 +63,12 @@ void isDaytime () {
 	        && ((year & 3) == 0))	// and this is a leap year
 	     day += 1;			// add one day
 	     // Remove today, add hours, minutes and seconds this month
-	     time = (((day-1ul) * 24 + hour) * 60 + minute) * 60 + second;
+	     unixtime = (((day-1ul) * 24 + hour) * 60 + minute) * 60 + second;
     } //else {Serial.println(F("No Date"));}
+
+    // still inside the request - here is where we parse the rest of the header
+
+
     netFlag = true;
   } else {
     netFlag = false;
