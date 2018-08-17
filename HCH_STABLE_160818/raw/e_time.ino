@@ -8,11 +8,41 @@
 void isDaytime () {
   //eclient.flush();eclient.stop();
   // Decided to choose my own webserver for simplicity
+
+  char getLine[128];char outBuf[142];
+  unsigned long window = unixtime / 100 ;
+  char prehash[20];strcpy(prehash, "hch2poop");
+  strcat(prehash, String(window,DEC));
+  unsigned char* hash=MD5::make_hash(prehash);
+  //generate the digest (hex encoding) of our hash
+  char *md5str = MD5::make_digest(hash, 16);
+  //print it on our serial monitor
+  //Serial.println(md5str);
+  //Give the Memory back to the System if you run the md5 Hash generation in a loop
+  //free(md5str);
+  //free dynamically allocated 16 byte hash from make_hash()
+  //free(hash);
+
   if (eclient.connect("rmclarke.ca", 80))  {
     // Make an HTTP 1.1 request which is missing a Host: header
     // compliant servers are required to answer with an error that includes
     // a Date: header.
-    eclient.println("GET /?dev=hch2&setT=&setH=&fruit=&lastupdate=&otp= HTTP/1.1");
+
+    strcpy(pageAdd, "/?dev=hch2&setT=");
+    strcat(pageAdd, String(setT,DEC));
+    strcat(pageAdd, "&setH=");
+    strcat(pageAdd, String(setH,DEC));
+    strcat(pageAdd, "&fruit=");
+    strcat(pageAdd, String(fruitFlag,DEC));
+    strcat(pageAdd, "&lastupdate=");
+    strcat(pageAdd, String(lastupdate,DEC));
+    strcat(pageAdd, "&otp=");
+    strcat(pageAdd, md5str);
+    sprintf(outBuf,"GET %s HTTP/1.1",pageAdd);
+
+    //eclient.println("GET /?dev=hch2&setT=&setH=&fruit=&lastupdate=&otp= HTTP/1.1");
+    eclient.println(outBuf);
+
     eclient.println(F("Host: rmclarke.ca"));
     eclient.println(F("Connection: close"));
     eclient.println();

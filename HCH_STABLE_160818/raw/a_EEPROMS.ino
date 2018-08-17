@@ -7,6 +7,8 @@ void readEEPROM() {
   eeAddress += sizeof(setH);
   EEPROM.get(eeAddress, fruitFlag);
   eeAddress += sizeof(fruitFlag);
+  EEPROM.get(eeAddress, lastupdate);
+  eeAddress += sizeof(lastupdate);
 }
 
 void updateEEPROM() {
@@ -18,5 +20,7 @@ void updateEEPROM() {
   eeAddress += sizeof(setH);
   EEPROM.put(eeAddress, fruitFlag);
   eeAddress += sizeof(fruitFlag);
+  EEPROM.put(eeAddress, lastupdate);
+  eeAddress += sizeof(lastupdate);
 
 }
