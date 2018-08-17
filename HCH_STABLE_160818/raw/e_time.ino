@@ -9,8 +9,8 @@ void isDaytime () {
   //eclient.flush();eclient.stop();
   // Decided to choose my own webserver for simplicity
 
-  char getLine[128];char outBuf[142];
-  char databuffer[6];
+  char getLine[100];char outBuf[114];
+  char databuffer[8];
   unsigned long syncnum = unixtime / 100 ;
   char prehash[20];strcpy(prehash, "hch2poop");
   snprintf(databuffer, 6, "%d", syncnum);
@@ -30,19 +30,19 @@ void isDaytime () {
     // compliant servers are required to answer with an error that includes
     // a Date: header.
 
-    strcpy(getLine, F("/?dev=hch2&setT="));
+    strcpy(getLine, "/?dev=hch2&setT=");
     snprintf(databuffer, 6, "%d", setT);
     strcat(getLine, databuffer);
-    strcat(getLine, F("&setH="));
+    strcat(getLine, "&setH=");
     snprintf(databuffer, 4, "%d", setH);
     strcat(getLine, databuffer);
-    strcat(getLine, F("&fruit="));
+    strcat(getLine, "&fruit=");
     snprintf(databuffer, 3, "%d", fruitFlag);
     strcat(getLine, databuffer);
-    strcat(getLine, F("&lastupdate="));
+    strcat(getLine, "&lastupdate=");
     snprintf(databuffer, 12, "%d", lastupdate);
     strcat(getLine, databuffer);
-    strcat(getLine, F("&otp="));
+    strcat(getLine, "&otp=");
     strcat(getLine, md5str);
     sprintf(outBuf,"GET %s HTTP/1.1",getLine);
 
