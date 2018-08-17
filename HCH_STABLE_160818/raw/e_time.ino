@@ -100,7 +100,7 @@ void isDaytime () {
     // still inside the request - here is where we parse the rest of the header
     char buf2[20];char temp[20];
     char s_dev[5];
-    unsigned int s_setT
+    unsigned int s_setT;
     unsigned char s_setH;
     boolean s_fruit;
     unsigned long s_lastupdate;
@@ -138,7 +138,7 @@ void isDaytime () {
       }
 
       // compare who's lastupdate is bigger, then make a choice
-      
+
 
     } // else { no iot found }
 
