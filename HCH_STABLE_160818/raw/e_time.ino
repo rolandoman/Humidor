@@ -98,6 +98,30 @@ void isDaytime () {
     } //else {Serial.println(F("No Date"));}
 
     // still inside the request - here is where we parse the rest of the header
+    char buf2[20];
+    char s_dev[5],s_setT[5],s_setH[3],s_fruit[2],s_lastupdate[12],s_otp[10];
+    if (eclient.find((char *)"\r\niot: ")) {
+      // OK, server is communicating, parse the message
+      if (eclient.find((char *)"dev=")) {
+        eclient.readBytes(buf2, 4);
+        snprintf(s_dev,5,"%s"buf2);
+      } else if (eclient.find((char *)"setT=") {
+        eclient.readBytes(buf2, 4);
+        snprintf(s_setT,5,"%s"buf2);
+      } else if (eclient.find((char *)"setH=") {
+        eclient.readBytes(buf2, 2);
+        snprintf(s_setH,3,"%s"buf2);
+      } else if (eclient.find((char *)"fruit=") {
+        eclient.readBytes(buf2, 1);
+        snprintf(s_fruit,2,"%s"buf2);
+      } else if (eclient.find((char *)"lastupdate=") {
+        eclient.readBytes(buf2, 10);
+        snprintf(s_lastupdate,12,"%s"buf2);
+      } else if (eclient.find((char *)"otp=") {
+        eclient.readBytes(buf2, 8);
+        snprintf(s_otp,10,"%s"buf2);
+      }
+    } // else { no iot found }
 
     netFlag = true;
   } else {
