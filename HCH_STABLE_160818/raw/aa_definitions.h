@@ -55,13 +55,13 @@ unsigned int udpport = 8089;
 
 // globals to save space as 10x real values... used for PID
 unsigned int curT1=0, curT2=0, curT=0;
-unsigned byte curH1=0, curH2=0, curH=0;
+unsigned char curH1=0, curH2=0, curH=0;
 float Erf, intErf=0;
 // Beginning of active controls, these are the set points for the temp and humidity
 unsigned int setT = 2550; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
-unsigned byte setH = 75; // initial set points for feedback
+unsigned char setH = 75; // initial set points for feedback
 
-unsigned byte heaterPower = 0; // make sure the heater starts in the off position
+unsigned char heaterPower = 0; // make sure the heater starts in the off position
 boolean heatcoolFlag = false;
 
 boolean lightFlag = false;  // should we turn on the LED
