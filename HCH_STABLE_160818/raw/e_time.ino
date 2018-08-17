@@ -119,7 +119,7 @@ void isDaytime () {
         snprintf(s_lastupdate,12,"%s",buf2);
       } else if (eclient.find((char *)"otp=")) {
         eclient.readBytes(buf2, 8);
-        snprintf(s_otp,10,"%s"buf2);
+        snprintf(s_otp,10,"%s",buf2);
       }
     } // else { no iot found }
 
