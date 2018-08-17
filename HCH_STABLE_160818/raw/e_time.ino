@@ -16,8 +16,9 @@ void isDaytime () {
 
   snprintf(databuffer, 6, "%d", syncnum);
   strcat(prehash, databuffer);
+  size_t numBytes = sizeof(byteBuffer) - 1;
 
-
+  uint32_t checksum = CRC32::calculate(prehash, numBytes);
 
 
 
@@ -129,5 +130,5 @@ void isDaytime () {
   // adjust these numbers to change lighting time. 6am to 7pm initially.
   if ((Hours>=6) && (Hours<19))  {isDay = true;} else {isDay=false;}
   if (isDay && fruitFlag) {lightFlag = true;} else {lightFlag = false;}
-  
+
 }
