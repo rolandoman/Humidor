@@ -104,19 +104,19 @@ void isDaytime () {
       // OK, server is communicating, parse the message
       if (eclient.find((char *)"dev=")) {
         eclient.readBytes(buf2, 4);
-        snprintf(s_dev,5,"%s"buf2);
+        snprintf(s_dev,5,"%s",buf2);
       } else if (eclient.find((char *)"setT=") {
         eclient.readBytes(buf2, 4);
-        snprintf(s_setT,5,"%s"buf2);
+        snprintf(s_setT,5,"%s",buf2);
       } else if (eclient.find((char *)"setH=") {
         eclient.readBytes(buf2, 2);
-        snprintf(s_setH,3,"%s"buf2);
+        snprintf(s_setH,3,"%s",buf2);
       } else if (eclient.find((char *)"fruit=") {
         eclient.readBytes(buf2, 1);
-        snprintf(s_fruit,2,"%s"buf2);
+        snprintf(s_fruit,2,"%s",buf2);
       } else if (eclient.find((char *)"lastupdate=") {
         eclient.readBytes(buf2, 10);
-        snprintf(s_lastupdate,12,"%s"buf2);
+        snprintf(s_lastupdate,12,"%s",buf2);
       } else if (eclient.find((char *)"otp=") {
         eclient.readBytes(buf2, 8);
         snprintf(s_otp,10,"%s"buf2);
