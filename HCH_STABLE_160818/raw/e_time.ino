@@ -12,18 +12,16 @@ void isDaytime () {
   char getLine[100];char outBuf[114];
   char databuffer[8];
   unsigned long syncnum = unixtime / 100 ;
-  char prehash[20];strcpy(prehash, "hch2poop");
+  char prehash[24];strcpy(prehash, "hch2poop");
 
-  snprintf(databuffer, 6, "%d", syncnum);
+  snprintf(databuffer, 10, "%d", syncnum);
   strcat(prehash, databuffer);
   size_t numBytes = sizeof(prehash) - 1;
 
   uint32_t otp = CRC32::calculate(prehash, numBytes);
 
   if (eclient.connect("rmclarke.ca", 80))  {
-    // Make an HTTP 1.1 request which is missing a Host: header
-    // compliant servers are required to answer with an error that includes
-    // a Date: header.
+    // Make an HTTP 1.1 request compliant servers are required to answer with an error that includes a Date: header.
 
     strcpy(getLine, "/?dev=hch2&setT=");
     snprintf(databuffer, 6, "%d", setT);
