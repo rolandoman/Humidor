@@ -63,7 +63,7 @@ void isDaytime () {
 	        && ((year & 3) == 0))	// and this is a leap year
 	     day += 1;			// add one day
 	     // Remove today, add hours, minutes and seconds this month
-	     unixtime = (((day-1ul) * 24 + hour) * 60 + minute) * 60 + second;
+	     unixtime = (((day-1ul) * 24 + Hours) * 60 + Minutes) * 60 + second;
     } //else {Serial.println(F("No Date"));}
 
     // still inside the request - here is where we parse the rest of the header
