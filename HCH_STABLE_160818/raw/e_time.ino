@@ -16,7 +16,7 @@ void isDaytime () {
 
   snprintf(databuffer, 6, "%d", syncnum);
   strcat(prehash, databuffer);
-  size_t numBytes = sizeof(byteBuffer) - 1;
+  size_t numBytes = sizeof(prehash) - 1;
 
   uint32_t checksum = CRC32::calculate(prehash, numBytes);
 
