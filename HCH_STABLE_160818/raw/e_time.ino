@@ -147,7 +147,7 @@ void isDaytime () {
         updateEEPROM();
 
       } else {
-        // I win, do nothing
+        // device wins, do nothing, hope that the server updates its shit
       }
 
     } // else { no iot found }
