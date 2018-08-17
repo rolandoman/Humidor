@@ -13,11 +13,14 @@ void isDaytime () {
   char databuffer[8];
   unsigned long syncnum = unixtime / 100 ;
   char prehash[20];strcpy(prehash, "hch2poop");
-  //snprintf(databuffer, 6, "%d", syncnum);
-  //strcat(prehash, databuffer);
-  //unsigned char* hash=MD5::make_hash(prehash);
+
+  snprintf(databuffer, 6, "%d", syncnum);
+  strcat(prehash, databuffer);
+  unsigned char* hash=MD5::make_hash(prehash);
   //generate the digest (hex encoding) of our hash
-  //char *md5str = MD5::make_digest(hash, 16);
+  char *md5str = MD5::make_digest(hash, 16);
+  free(md5str);
+  free(hash);
   //print it on our serial monitor
   //Serial.println(md5str);
   //Give the Memory back to the System if you run the md5 Hash generation in a loop
