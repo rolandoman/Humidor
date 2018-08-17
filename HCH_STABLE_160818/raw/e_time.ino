@@ -37,7 +37,7 @@ void isDaytime () {
     snprintf(databuffer, 12, "%lu", lastupdate);
     strcat(getLine, databuffer);
     strcat(getLine, "&otp=");
-    snprintf(databuffer, 12, "%lu", otp);
+    snprintf(databuffer, 12, "%lX", otp);
     strcat(getLine, databuffer);
     sprintf(outBuf,"GET %s HTTP/1.1",getLine);
 
