@@ -13,11 +13,11 @@ void isDaytime () {
   char databuffer[8];
   unsigned long syncnum = unixtime / 100 ;
   char prehash[20];strcpy(prehash, "hch2poop");
-  snprintf(databuffer, 6, "%d", syncnum);
-  strcat(prehash, databuffer);
-  unsigned char* hash=MD5::make_hash(prehash);
+  //snprintf(databuffer, 6, "%d", syncnum);
+  //strcat(prehash, databuffer);
+  //unsigned char* hash=MD5::make_hash(prehash);
   //generate the digest (hex encoding) of our hash
-  char *md5str = MD5::make_digest(hash, 16);
+  //char *md5str = MD5::make_digest(hash, 16);
   //print it on our serial monitor
   //Serial.println(md5str);
   //Give the Memory back to the System if you run the md5 Hash generation in a loop
@@ -43,7 +43,7 @@ void isDaytime () {
     snprintf(databuffer, 12, "%d", lastupdate);
     strcat(getLine, databuffer);
     strcat(getLine, "&otp=");
-    strcat(getLine, md5str);
+    //strcat(getLine, md5str);
     sprintf(outBuf,"GET %s HTTP/1.1",getLine);
 
     //eclient.println("GET /?dev=hch2&setT=&setH=&fruit=&lastupdate=&otp= HTTP/1.1");
@@ -119,6 +119,6 @@ void isDaytime () {
   if ((Hours>=6) && (Hours<19))  {isDay = true;} else {isDay=false;}
   if (isDay && fruitFlag) {lightFlag = true;} else {lightFlag = false;}
 
-  free(md5str);
-  free(hash);
+  //free(md5str);
+  //free(hash);
 }
