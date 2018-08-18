@@ -50,7 +50,7 @@ void isDaytime () {
     eclient.println(F("Connection: close"));
     eclient.println();
 
-    char buf[5];      // temporary buffer for characters
+    char buf[5]="";      // temporary buffer for characters
     //eclient.setTimeout(500);
     if (eclient.find((char *)"\r\nDate: ") && eclient.readBytes(buf, 5) == 5) {
       //Serial.println(F("Date Found"));
@@ -109,7 +109,7 @@ void isDaytime () {
     char s_otp[9]="";
     //lcd.setCursor(5,1);lcd.print(dev_otp);
     if (eclient.find((char *)"\r\niot: ")) {
-      //lcd.setCursor(5,1);lcd.print(F("iotBABY "));
+      lcd.setCursor(5,1);lcd.print(F("iotBABY "));
       // OK, server is communicating, parse the message
       // this should work no matter what order the variables are received
       //if (eclient.find((char *)"dev=")) {
@@ -141,8 +141,8 @@ void isDaytime () {
         //sprintf(s_otp,"%08X",buf2);
         //s_otp = buf2;
       }
-      lcd.setCursor(0,0);lcd.print("          ");lcd.setCursor(0,0);lcd.print(dev_otp);
-      lcd.setCursor(0,1);lcd.print("          ");lcd.setCursor(0,1);lcd.print(s_otp);
+      //lcd.setCursor(0,0);lcd.print("          ");lcd.setCursor(0,0);lcd.print(dev_otp);
+      //lcd.setCursor(0,1);lcd.print("          ");lcd.setCursor(0,1);lcd.print(s_otp);
       //lcd.setCursor(0,2);lcd.print("          ");lcd.setCursor(0,2);lcd.print(buf2);
       // confirm good comms, then compare who's lastupdate is bigger, then make a choice
       //if ((dev_otp == s_otp) && (device == s_dev) && (lastupdate < s_lastupdate)) {
