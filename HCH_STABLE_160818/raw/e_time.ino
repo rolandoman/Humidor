@@ -18,6 +18,7 @@ void isDaytime () {
   snprintf(databuffer, 10, "%lu", syncnum);
   strcat(prehash, databuffer);
   size_t numBytes = sizeof(prehash) - 1;
+  numBytes=16;
 
   uint32_t otp = CRC32::calculate(prehash, numBytes);
   char dev_otp[9];

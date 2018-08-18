@@ -32,7 +32,7 @@ byte degC_c[8] = {B01000,B10100,B01000,B00011,B00100,B00100,B00011,B00000};
 
 const unsigned long uploadInterval = (60L * 1000L);  // Every 1 minutes upload sensor data
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
-const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
+const unsigned long updateLCDInterval = (5L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (10L * 1000L); // Every 10 seconds update time of day (and auto update configs)
 
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
