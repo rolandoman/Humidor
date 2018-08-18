@@ -137,7 +137,7 @@ void isDaytime () {
       //}
       if (eclient.find((char *)"otp=")) {
         eclient.readBytes(buf2, 8);
-        snprintf(s_otp,10,"%s",buf2);
+        sprintf(s_otp,"%s",buf2);
       }
       lcd.setCursor(0,0);lcd.print("          ");lcd.setCursor(0,0);lcd.print(dev_otp);
       lcd.setCursor(0,1);lcd.print("          ");lcd.setCursor(0,1);lcd.print(s_otp);
