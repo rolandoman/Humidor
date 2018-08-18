@@ -112,10 +112,10 @@ void isDaytime () {
       //lcd.setCursor(9,1);lcd.print(F("iot"));
       // OK, server is communicating, parse the message
       // this should work no matter what order the variables are received
-      //if (eclient.find((char *)"dev=")) {
-      //  eclient.readBytes(buf2, 4);
-      //  snprintf(s_dev,6,"%s",buf2);
-      //}
+      if (eclient.find((char *)"dev=")) {
+        eclient.readBytes(buf2, 4);
+        sprintf(s_dev,"%s",buf2);
+      }
       //if (eclient.find((char *)"setT=")) {
       //  eclient.readBytes(buf2, 4);
       //  snprintf(temp,6,"%s",buf2);
@@ -156,7 +156,7 @@ void isDaytime () {
       //} else {
         // device wins, do nothing, hope that the server updates its shit
       //}
-      if (strcmp(dev_otp,s_otp) == 0) {
+      if ((strcmp(dev_otp,s_otp) == 0) && (strcmp(device,s_dev) == 0)) {
         lcd.setCursor(9,1);lcd.print(F("iot"));
       }
     } // else { no iot found }
