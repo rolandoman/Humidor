@@ -105,7 +105,7 @@ void isDaytime () {
     unsigned char s_setH;
     boolean s_fruit;
     unsigned long s_lastupdate;
-    char s_otp[10];
+    char s_otp[9];
     //lcd.setCursor(5,1);lcd.print(dev_otp);
     if (eclient.find((char *)"\r\niot: ")) {
       //lcd.setCursor(5,1);lcd.print(F("iotBABY "));
@@ -136,13 +136,13 @@ void isDaytime () {
       //  s_lastupdate = strtoul (temp, NULL, 0);
       //}
       if (eclient.find((char *)"otp=")) {
-        eclient.readBytes(buf2, 8);
+        eclient.readBytes(s_otp, 8);
         //sprintf(s_otp,"%08X",buf2);
-        s_otp = buf2;
+        //s_otp = buf2;
       }
       lcd.setCursor(0,0);lcd.print("          ");lcd.setCursor(0,0);lcd.print(dev_otp);
       lcd.setCursor(0,1);lcd.print("          ");lcd.setCursor(0,1);lcd.print(s_otp);
-      lcd.setCursor(0,2);lcd.print("          ");lcd.setCursor(0,2);lcd.print(buf2);
+      //lcd.setCursor(0,2);lcd.print("          ");lcd.setCursor(0,2);lcd.print(buf2);
       // confirm good comms, then compare who's lastupdate is bigger, then make a choice
       //if ((dev_otp == s_otp) && (device == s_dev) && (lastupdate < s_lastupdate)) {
         // server wins, update my shit and save it
