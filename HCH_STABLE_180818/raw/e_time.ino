@@ -116,11 +116,12 @@ void isDaytime () {
         eclient.readBytes(buf2, 4);
         sprintf(s_dev,"%s",buf2);
       }
-      if (eclient.find((char *)"setT=")) {
-        eclient.readBytes(buf2, 4);
-        sprintf(temp,"%d",buf2);
-        s_setT = (unsigned int) strtoul (temp, NULL, 0);
-      }
+
+      ///if (eclient.find((char *)"setT=")) {
+      ///  eclient.readBytes(buf2, 4);
+      ///  sprintf(temp,"%d",buf2);
+      ///  s_setT = (unsigned int) strtoul (temp, NULL, 0);
+      ///}
       //if (eclient.find((char *)"setH=")) {
       //  eclient.readBytes(buf2, 2);
       //  snprintf(temp,4,"%s",buf2);
@@ -152,10 +153,10 @@ void isDaytime () {
         // device wins, do nothing, hope that the server updates its shit
       //}
       if ((strcmp(dev_otp,s_otp) == 0) && (strcmp(device,s_dev) == 0)) {
-        if (s_setT == setT) {
-          lcd.setCursor(0,0);lcd.print(F("      "));
-          lcd.setCursor(0,0);lcd.print(s_setT);
-        }
+        //if (s_setT == setT) {
+        //  lcd.setCursor(0,0);lcd.print(F("      "));
+        //  lcd.setCursor(0,0);lcd.print(s_setT);
+        //}
         lcd.setCursor(9,1);lcd.print(F("iot"));
 
       }
