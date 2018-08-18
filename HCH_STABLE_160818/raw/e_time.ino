@@ -15,13 +15,13 @@ void isDaytime () {
   unsigned long syncnum = unixtime / 100 ;
   char prehash[24];strcpy(prehash, "hch2poop");
 
-  snprintf(databuffer, 10, "%lu", syncnum);
+  sprintf(databuffer, "%lu", syncnum);
   strcat(prehash, databuffer);
   size_t numBytes = sizeof(prehash) - 1;
   numBytes=16;
 
   uint32_t otp = CRC32::calculate(prehash, numBytes);
-  char dev_otp[9];
+  char dev_otp[9]="";
 
   if (eclient.connect("rmclarke.ca", 80))  {
     // Make an HTTP 1.1 request compliant servers are required to answer with an error that includes a Date: header.
@@ -100,8 +100,8 @@ void isDaytime () {
     } //else {Serial.println(F("No Date"));}
 
     // still inside the request - here is where we parse the rest of the header
-    char buf2[20];char temp[20];
-    char s_dev[5];
+    char buf2[20]="";char temp[20]="";
+    char s_dev[5]="";
     unsigned int s_setT;
     unsigned char s_setH;
     boolean s_fruit;
