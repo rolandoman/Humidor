@@ -118,7 +118,7 @@ void isDaytime () {
       }
       if (eclient.find((char *)"setT=")) {
         eclient.readBytes(buf2, 4);
-        sprintf(temp,"%u",buf2);
+        sprintf(temp,"%d",buf2);
         s_setT = (unsigned int) strtoul (temp, NULL, 0);
       }
       //if (eclient.find((char *)"setH=")) {
