@@ -139,8 +139,8 @@ void isDaytime () {
         eclient.readBytes(buf2, 8);
         snprintf(s_otp,10,"%s",buf2);
       }
-      lcd.setCursor(0,0);lcd.print(dev_otp);
-      lcd.setCursor(0,1);lcd.print(s_otp);
+      lcd.setCursor(0,0);lcd.print("          ");lcd.setCursor(0,0);lcd.print(dev_otp);
+      lcd.setCursor(0,1);lcd.print("          ");lcd.setCursor(0,1);lcd.print(s_otp);
       // confirm good comms, then compare who's lastupdate is bigger, then make a choice
       //if ((dev_otp == s_otp) && (device == s_dev) && (lastupdate < s_lastupdate)) {
         // server wins, update my shit and save it
