@@ -36,7 +36,7 @@ void isDaytime () {
     snprintf(databuffer, 3, "%u", fruitFlag);
     strcat(getLine, databuffer);
     strcat(getLine, "&lastupdate=");
-    snprintf(databuffer, 12, "%lu", lastupdate);
+    sprintf(databuffer, "%lu", lastupdate);
     strcat(getLine, databuffer);
     strcat(getLine, "&otp=");
     sprintf(dev_otp, "%lX", otp);
