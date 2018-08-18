@@ -152,8 +152,10 @@ void isDaytime () {
         // device wins, do nothing, hope that the server updates its shit
       //}
       if ((strcmp(dev_otp,s_otp) == 0) && (strcmp(device,s_dev) == 0)) {
-        lcd.setCursor(0,0);lcd.print(F("      "));
-        lcd.setCursor(0,0);lcd.print(s_setT);
+        if (s_setT == setT) {
+          lcd.setCursor(0,0);lcd.print(F("      "));
+          lcd.setCursor(0,0);lcd.print(s_setT);
+        }
         lcd.setCursor(9,1);lcd.print(F("iot"));
 
       }
