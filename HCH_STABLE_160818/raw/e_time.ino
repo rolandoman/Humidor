@@ -20,7 +20,7 @@ void isDaytime () {
   size_t numBytes = sizeof(prehash) - 1;
 
   uint32_t otp = CRC32::calculate(prehash, numBytes);
-  char dev_otp[10];
+  char dev_otp[9];
 
   if (eclient.connect("rmclarke.ca", 80))  {
     // Make an HTTP 1.1 request compliant servers are required to answer with an error that includes a Date: header.
