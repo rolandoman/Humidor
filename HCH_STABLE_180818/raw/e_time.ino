@@ -109,18 +109,18 @@ void isDaytime () {
     char s_otp[9]="";
     //lcd.setCursor(5,1);lcd.print(dev_otp);
     if (eclient.find((char *)"\r\niot: ")) {
-      //lcd.setCursor(9,1);lcd.print(F("iot"));
+
       // OK, server is communicating, parse the message
       // this should work no matter what order the variables are received
       if (eclient.find((char *)"dev=")) {
         eclient.readBytes(buf2, 4);
         sprintf(s_dev,"%s",buf2);
       }
-      //if (eclient.find((char *)"setT=")) {
-      //  eclient.readBytes(buf2, 4);
-      //  snprintf(temp,6,"%s",buf2);
-      //  s_setT = (unsigned int) strtoul (temp, NULL, 0);
-      //}
+      if (eclient.find((char *)"setT=")) {
+        eclient.readBytes(buf2, 4);
+        sprintf(temp,"%s",buf2);
+        s_setT = (unsigned int) strtoul (temp, NULL, 0);
+      }
       //if (eclient.find((char *)"setH=")) {
       //  eclient.readBytes(buf2, 2);
       //  snprintf(temp,4,"%s",buf2);
@@ -138,13 +138,8 @@ void isDaytime () {
       //}
       if (eclient.find((char *)"otp=")) {
         eclient.readBytes(s_otp, 8);
-        //sprintf(s_otp,"%08X",buf2);
-        //s_otp = buf2;
       }
-      //sprintf(buf2, "%lu", lastupdate);
-      //lcd.setCursor(0,0);lcd.print("            ");lcd.setCursor(0,0);lcd.print(buf2);
-      //lcd.setCursor(0,1);lcd.print("          ");lcd.setCursor(0,1);lcd.print(s_otp);
-      //lcd.setCursor(0,2);lcd.print("          ");lcd.setCursor(0,2);lcd.print(buf2);
+
       // confirm good comms, then compare who's lastupdate is bigger, then make a choice
       //if ((dev_otp == s_otp) && (device == s_dev) && (lastupdate < s_lastupdate)) {
         // server wins, update my shit and save it
@@ -157,7 +152,10 @@ void isDaytime () {
         // device wins, do nothing, hope that the server updates its shit
       //}
       if ((strcmp(dev_otp,s_otp) == 0) && (strcmp(device,s_dev) == 0)) {
+        lcd.setCursor(0,0);lcd.print(F("      "));
+        lcd.setCursor(0,0);lcd.print(s_setT);
         lcd.setCursor(9,1);lcd.print(F("iot"));
+
       }
     } // else { no iot found }
 
