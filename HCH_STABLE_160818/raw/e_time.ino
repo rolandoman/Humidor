@@ -105,7 +105,7 @@ void isDaytime () {
     unsigned char s_setH;
     boolean s_fruit;
     unsigned long s_lastupdate;
-    char s_otp[9];
+    char s_otp[9]=0;
     //lcd.setCursor(5,1);lcd.print(dev_otp);
     if (eclient.find((char *)"\r\niot: ")) {
       //lcd.setCursor(5,1);lcd.print(F("iotBABY "));
