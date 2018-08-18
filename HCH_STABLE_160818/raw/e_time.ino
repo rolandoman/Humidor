@@ -141,7 +141,8 @@ void isDaytime () {
         //sprintf(s_otp,"%08X",buf2);
         //s_otp = buf2;
       }
-      //lcd.setCursor(0,0);lcd.print("          ");lcd.setCursor(0,0);lcd.print(dev_otp);
+      sprintf(buf2, "%d", lastupdate);
+      lcd.setCursor(0,0);lcd.print("          ");lcd.setCursor(0,0);lcd.print(buf2);
       //lcd.setCursor(0,1);lcd.print("          ");lcd.setCursor(0,1);lcd.print(s_otp);
       //lcd.setCursor(0,2);lcd.print("          ");lcd.setCursor(0,2);lcd.print(buf2);
       // confirm good comms, then compare who's lastupdate is bigger, then make a choice
