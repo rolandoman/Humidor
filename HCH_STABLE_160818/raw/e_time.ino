@@ -155,7 +155,7 @@ void isDaytime () {
       //} else {
         // device wins, do nothing, hope that the server updates its shit
       //}
-      if (dev_otp == s_otp) {
+      if (strcmp(dev_otp,s_otp) == 0) {
         lcd.setCursor(5,1);lcd.print(F("iotBABY "));
       }
     } // else { no iot found }
