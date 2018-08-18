@@ -85,7 +85,7 @@ EthernetUDP udp;  // try sending influx data using UDP packets
 int Hours=0;
 int Minutes=0;
 unsigned long unixtime=0;
-unsigned long lastupdate=0;
+unsigned long lastupdate=1534464000;
 
 SimpleTimer timer;  // Instantiate the SimpleTimer object
 
