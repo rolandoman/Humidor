@@ -114,7 +114,7 @@ void isDaytime () {
       // this should work no matter what order the variables are received
       if (eclient.find((char *)"dev=")) {
         eclient.readBytes(s_dev, 4);
-        s_dev[4] = 0;
+        s_dev[4] = '\0';
         //sprintf(,"%s",buf2);
       }
       //if (eclient.find((char *)"setT=")) {
