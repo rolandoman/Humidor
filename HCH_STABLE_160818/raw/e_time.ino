@@ -109,7 +109,7 @@ void isDaytime () {
     char s_otp[9]="";
     //lcd.setCursor(5,1);lcd.print(dev_otp);
     if (eclient.find((char *)"\r\niot: ")) {
-      lcd.setCursor(5,1);lcd.print(F("iotBABY "));
+      //lcd.setCursor(5,1);lcd.print(F("iotBABY "));
       // OK, server is communicating, parse the message
       // this should work no matter what order the variables are received
       //if (eclient.find((char *)"dev=")) {
@@ -155,7 +155,9 @@ void isDaytime () {
       //} else {
         // device wins, do nothing, hope that the server updates its shit
       //}
-
+      if ((dev_otp == s_otp) {
+        lcd.setCursor(5,1);lcd.print(F("iotBABY "));
+      }
     } // else { no iot found }
 
     netFlag = true;
