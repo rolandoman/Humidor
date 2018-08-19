@@ -101,7 +101,7 @@ void isDaytime () {
 
     // still inside the request - here is where we parse the rest of the header
     //char buf2[80]="";
-    outBuf="";
+    //outBuf="";
     char tmpvarname[20]="";
     char tmpvarval[20]="";
     char s_dev[5]="";
