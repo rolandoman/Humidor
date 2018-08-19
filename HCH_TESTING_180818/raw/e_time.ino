@@ -131,7 +131,7 @@ void isDaytime () {
       ///    s_setT = (unsigned int) strtoul (tmpvarval, NULL, 0);
       ///  } else {
       ///    token = strtok(NULL, s);
-        }
+        //}
         if (token != NULL) {token = strtok(NULL, s);}
       }
 
