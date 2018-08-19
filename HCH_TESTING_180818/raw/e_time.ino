@@ -100,11 +100,13 @@ void isDaytime () {
     } //else {Serial.println(F("No Date"));}
 
     // still inside the request - here is where we parse the rest of the header
-    char buf2[80]="";char tmpvarname[20]="";char tmpvarval="";
+    char buf2[80]="";
+    char tmpvarname[20]="";
+    char tmpvarval[20]="";
     char s_dev[5]="";
-    unsigned int s_setT;
-    unsigned char s_setH;
-    boolean s_fruit;
+    unsigned int s_setT=0;
+    unsigned char s_setH=0;
+    boolean s_fruit=false;
     unsigned long s_lastupdate;
     char s_otp[9]="";
     const char s[3] = "&=";
@@ -116,8 +118,8 @@ void isDaytime () {
       token = strtok(buf2, s);
 
       while( token != NULL ) {
-        //printf( " %s\n", token );
-      ///  sprintf(tmpvarname,"%s",token);
+
+        sprintf(tmpvarname,"%s",token);
       ///  if (strcmp(tmpvarname,"dev") == 0) {
       ///    token = strtok(NULL, s);
       ///    sprintf(s_dev,"%s",token);
