@@ -188,9 +188,9 @@ void isDaytime () {
       //}
       //if ((strcmp(dev_otp,s_otp) == 0) && (strcmp(device,s_dev) == 0)) {
       //if (strcmp(dev_otp,s_otp) == 0) {
-      //if (strcmp(device,s_dev) == 0) {
+      if (strcmp(device,s_dev) == 0) {
         lcd.setCursor(9,1);lcd.print(F("iot"));
-      //}
+      }
     } // else { no iot found }
 
     netFlag = true;
