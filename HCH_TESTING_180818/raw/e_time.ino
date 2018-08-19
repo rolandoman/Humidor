@@ -100,16 +100,39 @@ void isDaytime () {
     } //else {Serial.println(F("No Date"));}
 
     // still inside the request - here is where we parse the rest of the header
-    char buf2[80]="";char temp[20]="";
+    char buf2[80]="";char tmpvarname[20]="";char tmpvarval="";
     char s_dev[5]="";
     unsigned int s_setT;
     unsigned char s_setH;
     boolean s_fruit;
     unsigned long s_lastupdate;
     char s_otp[9]="";
+    const char s[3] = "&=";
+    char *token;
     //lcd.setCursor(5,1);lcd.print(dev_otp);
     ///if (eclient.find((char *)"\r\niot: ")) {
     if (eclient.find((char *)"\r\niot: ") && eclient.readBytes(buf2, 70) == 70) {
+
+      token = strtok(buf2, s);
+
+      while( token != NULL ) {
+        //printf( " %s\n", token );
+        sprintf(tmpvarname,"%s",token);
+        if (strcmp(tmpvarname,"dev") == 0) {
+          token = strtok(NULL, s);
+          sprintf(s_dev,"%s",token);
+        } else if (strcmp(tmpvarname,"setT") == 0) {
+          token = strtok(NULL, s);
+          sprintf(tmpvarval,"%s",token);
+          s_setT = (unsigned int) strtoul (tmpvarval, NULL, 0);
+        } else {
+          token = strtok(NULL, s);
+        }
+
+        token = strtok(NULL, s);
+      }
+
+
       //lcd.setCursor(9,1);lcd.print(F("iot"));
       // OK, server is communicating, parse the message
       // this should work no matter what order the variables are received
