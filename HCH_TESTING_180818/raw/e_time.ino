@@ -100,7 +100,8 @@ void isDaytime () {
     } //else {Serial.println(F("No Date"));}
 
     // still inside the request - here is where we parse the rest of the header
-    char buf2[80]="";
+    //char buf2[80]="";
+    outBuf="";
     char tmpvarname[20]="";
     char tmpvarval[20]="";
     char s_dev[5]="";
@@ -113,9 +114,9 @@ void isDaytime () {
     char *token;
     //lcd.setCursor(5,1);lcd.print(dev_otp);
     ///if (eclient.find((char *)"\r\niot: ")) {
-    if (eclient.find((char *)"\r\niot: ") && eclient.readBytes(buf2, 70) == 70) {
+    if (eclient.find((char *)"\r\niot: ") && eclient.readBytes(outBuf, 70) == 70) {
 
-      token = strtok(buf2, s);
+      token = strtok(outBuf, s);
 
       while( token != NULL ) {
         sprintf(tmpvarname,"%s",token);
