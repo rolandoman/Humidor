@@ -122,7 +122,7 @@ void isDaytime () {
         if (token != NULL) {token = strtok(NULL, s);}
         sprintf(tmpvarval,"%s",token);
         if (strcmp(tmpvarname,"dev")==0) {
-          sprintf(s_dev,"%s",tmpvarval)
+          sprintf(s_dev,"%s",tmpvarval);
         }
         //if (strcmp(tmpvarname,"dev") == 0) {
         //  if (token != NULL) {token = strtok(NULL, s);}
