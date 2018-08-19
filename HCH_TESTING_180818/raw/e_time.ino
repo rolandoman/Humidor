@@ -115,22 +115,22 @@ void isDaytime () {
 
       token = strtok(buf2, s);
 
-      while( token != NULL ) {
+      ///while( token != NULL ) {
         //printf( " %s\n", token );
-        sprintf(tmpvarname,"%s",token);
-        if (strcmp(tmpvarname,"dev") == 0) {
-          token = strtok(NULL, s);
-          sprintf(s_dev,"%s",token);
-        } else if (strcmp(tmpvarname,"setT") == 0) {
-          token = strtok(NULL, s);
-          sprintf(tmpvarval,"%s",token);
-          s_setT = (unsigned int) strtoul (tmpvarval, NULL, 0);
-        } else {
-          token = strtok(NULL, s);
-        }
+      ///  sprintf(tmpvarname,"%s",token);
+      ///  if (strcmp(tmpvarname,"dev") == 0) {
+      ///    token = strtok(NULL, s);
+      ///    sprintf(s_dev,"%s",token);
+      ///  } else if (strcmp(tmpvarname,"setT") == 0) {
+      ///    token = strtok(NULL, s);
+      ///    sprintf(tmpvarval,"%s",token);
+      ///    s_setT = (unsigned int) strtoul (tmpvarval, NULL, 0);
+      ///  } else {
+      ///    token = strtok(NULL, s);
+      ///  }
 
-        token = strtok(NULL, s);
-      }
+      ///  token = strtok(NULL, s);
+      ///}
 
 
       //lcd.setCursor(9,1);lcd.print(F("iot"));
