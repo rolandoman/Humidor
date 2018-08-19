@@ -3,8 +3,8 @@
 void sendData() {
   // initialize comms variables
   //char outBuf[24];
-  char databuffer[6]="";
-  char data[500]=""; // need to end reliance on arduino 'Strings'
+  char databuffer[6];
+  char data[500]; // need to end reliance on arduino 'Strings'
 
   unsigned char Tb1 = (unsigned char) (curT1 / 100);
   unsigned char Tb2 = (unsigned char) ((unsigned int)curT1 - ((unsigned int)Tb1 * 100));
@@ -13,9 +13,13 @@ void sendData() {
   sprintf(databuffer, "%02d", Tb1);strcat(data, databuffer);strcat(data, ".");
   sprintf(databuffer, "%02d", Tb2);strcat(data, databuffer);strcat(data, "\n");
 
+  udp.beginPacket(influxserver, udpport);
+  udp.print(data);
+  udp.endPacket();
+
   Tb1 = (unsigned char) (curT2 / 100);
   Tb2 = (unsigned char) ((unsigned int)curT2 - ((unsigned int)Tb1 * 100)) ;
-  strcat(data, "temp2,owner=rolo,group=home,device=hch2 value=");
+  strcpy(data, "temp2,owner=rolo,group=home,device=hch2 value=");
   sprintf(databuffer, "%02d", Tb1);strcat(data, databuffer);strcat(data, ".");
   sprintf(databuffer, "%02d", Tb2);strcat(data, databuffer);strcat(data, "\n");
 
