@@ -13,7 +13,7 @@ void isDaytime () {
   char getLine[100];char outBuf[114];
   char databuffer[14];
   unsigned long syncnum = unixtime / 100 ;
-  char prehash[24];strcpy(prehash, "hch2poop");
+  char prehash[24];strcpy(prehash, "hch2poop");  // device name used here
 
   sprintf(databuffer, "%lu", syncnum);
   strcat(prehash, databuffer);
@@ -26,7 +26,7 @@ void isDaytime () {
   if (eclient.connect("rmclarke.ca", 80))  {
     // Make an HTTP 1.1 request compliant servers are required to answer with an error that includes a Date: header.
 
-    strcpy(getLine, "/?dev=hch2&setT=");
+    strcpy(getLine, "/?dev=hch2&setT=");  // device name used here
     snprintf(databuffer, 6, "%u", setT);
     strcat(getLine, databuffer);
     strcat(getLine, "&setH=");
