@@ -1,6 +1,10 @@
 
 void ioSetup(void) {
 
+  pinMode(sensPin1, INPUT_PULLUP);
+  pinMode(sensPin2 INPUT_PULLUP);
+  pinMode(sensPin3, INPUT_PULLUP);
+
   pinMode(topButton, INPUT);      // sets the topmost mode button digital pin as input
   pinMode(midButton, INPUT);      // sets the middle increase button digital pin as input
   pinMode(botButton, INPUT);      // sets the bottom decrease button digital pin as input
@@ -15,4 +19,5 @@ void ioSetup(void) {
   digitalWrite(mistPin, Relay_OFF);   // default setting on boot should be off
   digitalWrite(heatCoolPin, Relay_OFF); // set to cool at bootup
   analogWrite(peltierPwmPin, 0);  // make sure peltier is off on bootup
+  
 }
