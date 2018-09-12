@@ -19,4 +19,5 @@ void ioSetup(void) {
   digitalWrite(mistPin, Relay_OFF);   // default setting on boot should be off
   digitalWrite(heatCoolPin, Relay_OFF); // set to cool at bootup
   analogWrite(peltierPwmPin, 0);  // make sure peltier is off on bootup
+  
 }
