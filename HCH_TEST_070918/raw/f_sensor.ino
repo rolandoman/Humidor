@@ -41,6 +41,7 @@ void readSensorData() {
   // should put in some logic here in case a bad reading from one of the sensors...
 
   float lastErf = Erf ;
+  float lastdifErf = difErf;
   float lastintErf = intErf;
 
   float t1= dht1.readTemperature();
@@ -63,11 +64,12 @@ void readSensorData() {
 
   Erf = (float) ((float) curT - (float) setT);
 
-  intErf = (float) ((0.98)*lastintErf + Erf);
-  float difErf = (Erf - lastErf);
+  intErf = (float) ((0.98)*lastintErf + Erf); // The 0.98 ensures it does not integrate forever
+
+  difErf = ((Erf - lastErf) + lastdifErf/2) * 2 / 3;  //add a simple filter to the derivative to even out noise
 
   // Hard code the gain to start... will abstract this later...
-  float Signal = 0.5 * (Erf + difErf*6 + intErf/2);
+  float Signal = 0.4 * (Erf + difErf*12 + intErf/3);
 
   //DEBUG_PRINT("Signal: "+String(Signal));
 

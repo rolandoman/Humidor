@@ -56,7 +56,7 @@ unsigned int udpport = 8089;
 // globals to save space as 10x real values... used for PID
 unsigned int curT1=0, curT2=0, curT=0;
 unsigned char curH1=0, curH2=0, curH=0;
-float Erf, intErf=0;
+float Erf=0, intErf=0, difErf=0;
 // Beginning of active controls, these are the set points for the temp and humidity
 unsigned int setT = 2550; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
 unsigned char setH = 75; // initial set points for feedback
