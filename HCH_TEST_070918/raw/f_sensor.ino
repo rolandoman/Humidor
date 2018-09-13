@@ -69,7 +69,7 @@ void readSensorData() {
   difErf = ((Erf - lastErf) + lastdifErf/2) * 2 / 3;  //add a simple filter to the derivative to even out noise
 
   // Hard code the gain to start... will abstract this later...
-  float Signal = 0.4 * (Erf + difErf*12 + intErf/3);
+  float Signal = 0.8 * (Erf + difErf*6 + intErf/8);
 
   //DEBUG_PRINT("Signal: "+String(Signal));
 
