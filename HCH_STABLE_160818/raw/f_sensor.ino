@@ -67,7 +67,7 @@ void readSensorData() {
   float difErf = (Erf - lastErf);
 
   // Hard code the gain to start... will abstract this later...
-  float Signal = 0.5 * (Erf + difErf*6 + intErf/2);
+  float Signal = 0.5 * (Erf + difErf*8 + intErf/3);
 
   //DEBUG_PRINT("Signal: "+String(Signal));
 
