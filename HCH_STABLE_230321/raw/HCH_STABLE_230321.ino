@@ -14,6 +14,11 @@ Build better library control, and divide project into multiple files for easier 
 4) watchdog.ino - all the watchdog functions: resetFunc, watchdogSetup, ISR
 
 Should follow this format as more and more functions or tests are added to the project
+
+Major upgrades for using the Mega 2560 Pro Mini board which has more memory
+Adding a compiler compare so the code may work on the old boards...
+
+
 */
 
 #include <avr/wdt.h>
@@ -26,3 +31,5 @@ Should follow this format as more and more functions or tests are added to the p
 #include <LiquidCrystal_I2C.h>
 #include <Button.h>
 #include <EEPROM.h>
+
+#define Mega2560 1

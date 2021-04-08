@@ -12,11 +12,18 @@ byte degC_c[8] = {B01000,B10100,B01000,B00011,B00100,B00100,B00011,B00000};
 #define Relay_OFF LOW
 
 // Define all the arduino pins up front...
-#define sensPin1 A0 // DHT22 #1
-#define sensPin2 A1 // DHT22 #2
-#define sensPin3 A2 // DHT22 #3
+#if defined(Mega2560) &&  Mega2560
+  #define sensPin1 45 // DHT22 #1
+  #define sensPin2 46 // DHT22 #2
+  #define sensPin3 44 // DHT22 #3
+  #define waterPin 31 // level sensor
+#else
+  #define sensPin1 A0 // DHT22 #1
+  #define sensPin2 A1 // DHT22 #2
+  #define sensPin3 A2 // DHT22 #3
+  #define waterPin A3 // level sensor
+#endif
 
-#define waterPin A3 // level sensor
 
 // Output pins for control
 #define waterPumpPin 7    // controls power to heat/cool module in auto mode - do not use...
@@ -26,9 +33,15 @@ byte degC_c[8] = {B01000,B10100,B01000,B00011,B00100,B00100,B00011,B00000};
 #define mistPin 9   // controls the humidifier relay
 
 // input pins
-#define topButton 2   // top mode button connected to digital pin 2
-#define midButton 4   // middle increase button connected to digital pin 4
-#define botButton 8   // bottom decrease button connected to digital pin 8
+#if defined(Mega2560) &&  Mega2560
+  #define topButton 43   // top mode button connected to digital pin 2
+  #define midButton 41   // middle increase button connected to digital pin 4
+  #define botButton 39   // bottom decrease button connected to digital pin 8
+#else
+  #define topButton 2   // top mode button connected to digital pin 2
+  #define midButton 4   // middle increase button connected to digital pin 4
+  #define botButton 8   // bottom decrease button connected to digital pin 8
+#endif
 
 const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minutes upload sensor data
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors

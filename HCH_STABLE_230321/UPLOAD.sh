@@ -1,5 +1,5 @@
 #!/bin/bash
 
-cd source/build-pro5v328-avr
+cd source/build-mega2560-avr
 
-avrdude -v -p m328p -c arduino -P /dev/ttyUSB0 -b 57600 -D -U flash:w:source.hex:i
+/snap/arduino/50/hardware/tools/avr/bin/avrdude -C/snap/arduino/50/hardware/tools/avr/etc/avrdude.conf -v -patmega2560 -c wiring -P /dev/ttyUSB0 -b 115200 -D -U flash:w:source.hex:i
