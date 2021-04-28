@@ -90,9 +90,14 @@ unsigned char oldRunMode = 0;
 
 // Network Globals
 byte mac[] = { 0x00, 0xAD, 0xBE, 0xEF, 0xFE, 0xEE };  // registered on my router
-IPAddress ip(192, 168, 1, 223); // just in case DHCP doesn't work
-IPAddress dnServer(192, 168, 1, 254);
-IPAddress gateway(192, 168, 1, 254);
+// IPAddress ip(192, 168, 1, 223); // just in case DHCP doesn't work
+// IPAddress dnServer(192, 168, 1, 254);
+// IPAddress gateway(192, 168, 1, 254);
+
+IPAddress ip(10, 80, 80, 177); // just in case DHCP doesn't work
+IPAddress dnServer(10, 80, 80, 1);
+IPAddress gateway(10, 80, 80, 1);
+
 IPAddress subnet(255, 255, 255, 0);
 
 IPAddress influxserver(35,197,35,96);

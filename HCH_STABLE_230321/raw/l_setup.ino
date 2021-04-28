@@ -6,6 +6,7 @@ void setup() {
   lcd.begin();  // start LCD Screen
   lcdSetup(); // print the initial screen
   ioSetup();  // setup which arduino pins are INPUT, and OUTPUT...
+  Ethernet.init(53);  // Added for working with Mega 2560
   delay(250); // give the ethernet module time to boot up: This was soooo crucial!!!
   Ethernet.begin(mac, ip, dnServer, gateway, subnet);
   eclient.setTimeout(3000);
