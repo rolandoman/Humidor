@@ -13,6 +13,8 @@ pname=`basename "$PWD"`
 cd raw
 cat $pname.ino aa_definitions.h *.ino > ../source/source.ino
 
-cp ../Makefile ../source/
+#cp ../Makefile ../source/
 cd ../source
-make
+#make
+
+arduino-cli compile --fqbn arduino:avr:mega --libraries="/usr/share/arduino/libraries" source.ino
