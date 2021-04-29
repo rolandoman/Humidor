@@ -94,7 +94,7 @@ byte mac[] = { 0x00, 0xAD, 0xBE, 0xEF, 0xFE, 0xEE };  // registered on my router
 // IPAddress dnServer(192, 168, 1, 254);
 // IPAddress gateway(192, 168, 1, 254);
 
-IPAddress ip(10, 80, 80, 177); // just in case DHCP doesn't work
+IPAddress ip(10, 80, 80, 180); // just in case DHCP doesn't work
 IPAddress dnServer(10, 80, 80, 1);
 IPAddress gateway(10, 80, 80, 1);
 
@@ -571,16 +571,56 @@ Adding a compiler compare so the code may work on the old boards...
 #define Mega2560 1
 /*          SETUP FUNCTION          */
 void setup() {
-  // start the serial port... turn off in production mode - way to wasteful with memory!
-  //Serial.begin(57600);
+
+  Ethernet.init(53);  // Added for working with Mega 2560
+
+  // start the serial port... turn off in production mode - way too wasteful with memory!
+  Serial.begin(57600);
+
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
+
+
 
   lcd.begin();  // start LCD Screen
   lcdSetup(); // print the initial screen
   ioSetup();  // setup which arduino pins are INPUT, and OUTPUT...
-  Ethernet.init(53);  // Added for working with Mega 2560
+
   delay(250); // give the ethernet module time to boot up: This was soooo crucial!!!
-  Ethernet.begin(mac, ip, dnServer, gateway, subnet);
-  eclient.setTimeout(3000);
+
+
+  // start the Ethernet connection:
+Serial.println("Initialize Ethernet with DHCP:");
+if (Ethernet.begin(mac) == 0) {
+  Serial.println("Failed to configure Ethernet using DHCP");
+  // Check for Ethernet hardware present
+  if (Ethernet.hardwareStatus() == EthernetNoHardware) {
+    Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
+    while (true) {
+      delay(1); // do nothing, no point running without Ethernet hardware
+    }
+  }
+  if (Ethernet.linkStatus() == LinkOFF) {
+    Serial.println("Ethernet cable is not connected.");
+  }
+  // try to configure using IP address instead of DHCP:
+  //Ethernet.begin(mac, ip, dnServer);
+} else {
+  Serial.print("  DHCP assigned IP ");
+  Serial.println(Ethernet.localIP());
+}
+// give the Ethernet shield a second to initialize:
+delay(1000);
+
+
+  //Ethernet.begin(mac, ip, dnServer, gateway, subnet);
+  //eclient.setTimeout(3000);
+
+
+
+
+
   delay(500);
 
   udp.begin(udpport);
