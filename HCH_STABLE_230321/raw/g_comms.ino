@@ -63,8 +63,10 @@ void sendData() {
 
   Tb1 = (unsigned char) (setT / 100);
   Tb2 = (unsigned char) ((unsigned int)setT - ((unsigned int)Tb1 * 100)) ;
+
   strcat(data, "setT,owner=rolo,group=home,device=hch");
-  3 value=");
+  snprintf(databuffer, 3, "%02d", hchID);strcat(data, databuffer);
+  strcat(data, " value=");
 
   snprintf(databuffer, 3, "%02d", Tb1);strcat(data, databuffer);strcat(data, ".");
   snprintf(databuffer, 3, "%02d", Tb2);strcat(data, databuffer);strcat(data, "\n");
