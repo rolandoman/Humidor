@@ -78,7 +78,8 @@ byte degC_c[8] = {B01000,B10100,B01000,B00011,B00100,B00100,B00011,B00000};
   #define botButton 8   // bottom decrease button connected to digital pin 8
 #endif
 
-const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minutes upload sensor data
+//const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minutes upload sensor data
+const unsigned long uploadInterval = (60L * 1000L); // for testing purposes
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (30L * 1000L); // Every 30 seconds update time of day (and auto update configs)
@@ -498,53 +499,54 @@ void sendData() {
   unsigned char Tb1 = (unsigned char) (curT1 / 100);
   unsigned char Tb2 = (unsigned char) ((unsigned int)curT1 - ((unsigned int)Tb1 * 100));
 
-  strcpy(data, "temp1,owner=rolo,group=home,device=hch");
+  strcpy(data, "temp1,owner=rolo,group=home,device=hc");
   snprintf(databuffer, 3, "%02d", hchID);strcat(data, databuffer);
   strcat(data, " value=");
+
   snprintf(databuffer, 3, "%02d", Tb1);strcat(data, databuffer);strcat(data, ".");
   snprintf(databuffer, 3, "%02d", Tb2);strcat(data, databuffer);strcat(data, "\n");
 
   Tb1 = (unsigned char) (curT2 / 100);
   Tb2 = (unsigned char) ((unsigned int)curT2 - ((unsigned int)Tb1 * 100)) ;
 
-  strcat(data, "temp2,owner=rolo,group=home,device=hch");
+  strcat(data, "temp2,owner=rolo,group=home,device=hc");
   snprintf(databuffer, 3, "%02d", hchID);strcat(data, databuffer);
   strcat(data, " value=");
 
   snprintf(databuffer, 3, "%02d", Tb1);strcat(data, databuffer);strcat(data, ".");
   snprintf(databuffer, 3, "%02d", Tb2);strcat(data, databuffer);strcat(data, "\n");
 
-  strcat(data, "hum1,owner=rolo,group=home,device=hch");
+  strcat(data, "hum1,owner=rolo,group=home,device=hc");
   snprintf(databuffer, 3, "%02d", hchID);strcat(data, databuffer);
   strcat(data, " value=");
 
   snprintf(databuffer, 3, "%02d", curH1);strcat(data, databuffer);strcat(data, "\n");
 
-  strcat(data, "hum2,owner=rolo,group=home,device=hch");
+  strcat(data, "hum2,owner=rolo,group=home,device=hc");
   snprintf(databuffer, 3, "%02d", hchID);strcat(data, databuffer);
   strcat(data, " value=");
 
   snprintf(databuffer, 3, "%02d", curH2);strcat(data, databuffer);strcat(data, "\n");
 
-  strcat(data, "heatcool,owner=rolo,group=home,device=hch");
+  strcat(data, "heatcool,owner=rolo,group=home,device=hc");
   snprintf(databuffer, 3, "%02d", hchID);strcat(data, databuffer);
   strcat(data, " value=");
 
   snprintf(databuffer, 3, "%d", heatcoolFlag);strcat(data, databuffer);strcat(data, "\n");
 
-  strcat(data, "mist,owner=rolo,group=home,device=hch");
+  strcat(data, "mist,owner=rolo,group=home,device=hc");
   snprintf(databuffer, 3, "%02d", hchID);strcat(data, databuffer);
   strcat(data, " value=");
 
   snprintf(databuffer, 3, "%d", mistFlag);strcat(data, databuffer);strcat(data, "\n");
 
-  strcat(data, "hpower,owner=rolo,group=home,device=hch");
+  strcat(data, "hpower,owner=rolo,group=home,device=hc");
   snprintf(databuffer, 3, "%02d", hchID);strcat(data, databuffer);
   strcat(data, " value=");
 
   snprintf(databuffer, 5, "%03d", heaterPower);strcat(data, databuffer);strcat(data, "\n");
 
-  strcat(data, "light,owner=rolo,group=home,device=hch");
+  strcat(data, "light,owner=rolo,group=home,device=hc");
   snprintf(databuffer, 3, "%02d", hchID);strcat(data, databuffer);
   strcat(data, " value=");
 
@@ -552,17 +554,21 @@ void sendData() {
 
   Tb1 = (unsigned char) (setT / 100);
   Tb2 = (unsigned char) ((unsigned int)setT - ((unsigned int)Tb1 * 100)) ;
-  strcat(data, "setT,owner=rolo,group=home,device=hch");
-  3 value=");
+
+  strcat(data, "setT,owner=rolo,group=home,device=hc");
+  snprintf(databuffer, 3, "%02d", hchID);strcat(data, databuffer);
+  strcat(data, " value=");
 
   snprintf(databuffer, 3, "%02d", Tb1);strcat(data, databuffer);strcat(data, ".");
   snprintf(databuffer, 3, "%02d", Tb2);strcat(data, databuffer);strcat(data, "\n");
 
-  strcat(data, "setH,owner=rolo,group=home,device=hch");
+  strcat(data, "setH,owner=rolo,group=home,device=hc");
   snprintf(databuffer, 3, "%02d", hchID);strcat(data, databuffer);
   strcat(data, " value=");
 
   snprintf(databuffer, 3, "%02d", setH);strcat(data, databuffer);strcat(data, "\n");
+
+  Serial.print(data);
 
   udp.beginPacket(influxserver, udpport);
   udp.print(data);
@@ -607,7 +613,7 @@ Adding a compiler compare so the code may work on the old boards...
 /*          SETUP FUNCTION          */
 void setup() {
 
-  hchID = 15; //comment this out for writing initial values only - run once
+  hchID = 9; //comment this out for writing initial values only - run once
   updateEEPROM(); //comment this out for writing initial values only - run once
 
   Ethernet.init(53);  // Added for working with Mega 2560

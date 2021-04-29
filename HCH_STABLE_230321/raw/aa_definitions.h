@@ -1,4 +1,9 @@
 
+// comment this out for production mode...
+#define DEBUG 1
+// set this flag if running for first time to burn defaults into EEPROM
+//#define FIRSTTIME 1
+
 // special characters for the LCD display, should create a nice logo
 byte N1_c[8] = {B11100,B10111,B11101,B00001,B11101,B10111,B11100,B00000};
 byte N2_c[8] = {B00000,B00000,B01110,B11010,B01110,B00000,B00000,B00000};
@@ -44,6 +49,7 @@ byte degC_c[8] = {B01000,B10100,B01000,B00011,B00100,B00100,B00011,B00000};
 #endif
 
 const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minutes upload sensor data
+//const unsigned long uploadInterval = (60L * 1000L); // for testing purposes
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (30L * 1000L); // Every 30 seconds update time of day (and auto update configs)
