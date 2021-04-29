@@ -3,6 +3,7 @@ void setup() {
 
   #ifdef FIRSTTIME
   //hchID = 9; //comment this out for writing initial values only - run once
+  // influx seems to accomodate only a two digit ID here...
   //updateEEPROM(); //comment this out for writing initial values only - run once
   #endif
 
