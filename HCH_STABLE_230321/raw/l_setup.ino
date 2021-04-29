@@ -1,6 +1,9 @@
 /*          SETUP FUNCTION          */
 void setup() {
 
+  hchID = 15;comment this out for writing initial values only - run once
+  updateEEPROM(); comment this out for writing initial values only - run once
+
   Ethernet.init(53);  // Added for working with Mega 2560
 
   // start the serial port... turn off in production mode - way too wasteful with memory!

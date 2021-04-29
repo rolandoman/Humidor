@@ -7,6 +7,9 @@ void readEEPROM() {
   eeAddress += sizeof(setH);
   EEPROM.get(eeAddress, fruitFlag);
   eeAddress += sizeof(fruitFlag);
+  //hchID added in 2021
+  EEPROM.get(eeAddress, hchID);
+  eeAddress += sizeof(hchID);
 }
 
 void updateEEPROM() {
@@ -18,5 +21,7 @@ void updateEEPROM() {
   eeAddress += sizeof(setH);
   EEPROM.put(eeAddress, fruitFlag);
   eeAddress += sizeof(fruitFlag);
-
+  //hchID added in 2021
+  EEPROM.put(eeAddress, hchID);
+  eeAddress += sizeof(hchID);
 }

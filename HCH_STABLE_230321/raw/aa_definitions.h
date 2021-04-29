@@ -106,3 +106,5 @@ int Minutes=0;
 SimpleTimer timer;  // Instantiate the SimpleTimer object
 
 DHT dht1(sensPin1, DHTTYPE); DHT dht2(sensPin2, DHTTYPE); DHT dht3(sensPin3, DHTTYPE);  //// Instantiate DHT sensors
+
+unsigned char hchID;
