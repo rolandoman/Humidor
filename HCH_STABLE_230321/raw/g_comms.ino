@@ -79,9 +79,9 @@ void sendData() {
   snprintf(databuffer, 3, "%02d", setH);strcat(data, databuffer);strcat(data, "\n");
 
   // Turn this off in production mode
-  ifdef DEBUG
+  #ifdef DEBUG
   Serial.print(data);
-  endif
+  #endif
 
   udp.beginPacket(influxserver, udpport);
   udp.print(data);

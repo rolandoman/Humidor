@@ -1,20 +1,20 @@
 /*          SETUP FUNCTION          */
 void setup() {
 
-  ifdef FIRSTTIME
+  #ifdef FIRSTTIME
   //hchID = 9; //comment this out for writing initial values only - run once
   //updateEEPROM(); //comment this out for writing initial values only - run once
-  endif
+  #endif
 
   Ethernet.init(53);  // Added for working with Mega 2560
 
   // start the serial port... turn off in production mode - way too wasteful with memory!
-  ifdef DEBUG
+  #ifdef DEBUG
   Serial.begin(57600);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
   }
-  endif
+  #endif
 
 
   lcd.begin();  // start LCD Screen
@@ -25,34 +25,34 @@ void setup() {
 
 
   // start the Ethernet connection:
-  ifdef DEBUG
+  #ifdef DEBUG
   Serial.println("Initialize Ethernet with DHCP:");
-  endif
+  #endif
   if (Ethernet.begin(mac) == 0) {
-    ifdef DEBUG
+    #ifdef DEBUG
     Serial.println("Failed to configure Ethernet using DHCP");
-    endif
+    #endif
   // Check for Ethernet hardware present
   if (Ethernet.hardwareStatus() == EthernetNoHardware) {
-    ifdef DEBUG
+    #ifdef DEBUG
     Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
-    endif
+    #endif
     while (true) {
       delay(1); // do nothing, no point running without Ethernet hardware
     }
   }
   if (Ethernet.linkStatus() == LinkOFF) {
-    ifdef DEBUG
+    #ifdef DEBUG
     Serial.println("Ethernet cable is not connected.");
-    endif
+    #endif
   }
   // try to configure using IP address instead of DHCP:
   //Ethernet.begin(mac, ip, dnServer);
 } else {
-  ifdef DEBUG
+  #ifdef DEBUG
   Serial.print("  DHCP assigned IP ");
   Serial.println(Ethernet.localIP());
-  endif
+  #endif
 }
 // give the Ethernet shield a second to initialize:
 delay(500);
