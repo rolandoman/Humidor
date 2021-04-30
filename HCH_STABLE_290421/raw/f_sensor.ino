@@ -27,9 +27,15 @@ void setMist() {
 void setLED() {
   if (lightFlag) {
     digitalWrite(lightPin, Relay_ON);
+    #ifdef DEBUG
+      Serial.println("LED Relay ON");
+    #endif
     delay(250);
   } else {
     digitalWrite(lightPin, Relay_OFF);
+    #ifdef DEBUG
+      Serial.println("LED Relay OFF");
+    #endif
     delay(250);
   }
 
