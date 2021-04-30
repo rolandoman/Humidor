@@ -66,12 +66,19 @@ byte degC_c[8] = {B01000,B10100,B01000,B00011,B00100,B00100,B00011,B00000};
 
 
 // Output pins for control
-#define waterPumpPin 7    // controls power to heat/cool module in auto mode - do not use...
-#define peltierPwmPin 3   // Turns heat/cool module on and off (default cool, pin 6 low - heat)
-#define heatCoolPin 6 // Default is Cool mode, pin low is Heat mode
-#define lightPin 5  // controls relay to led lights
-#define mistPin 9   // controls the humidifier relay
-
+#if defined(Mega2560) &&  Mega2560
+  #define waterPumpPin 23
+  #define peltierPwmPin 13  // Turns heat/cool module on and off (default cool, pin 6 low - heat)
+  #define heatCoolPin 12   // Default is Cool mode, pin low is Heat mode
+  #define lightPin 30 // controls relay to led lights
+  #define mistPin 25
+#else
+  #define waterPumpPin 7    // controls power to heat/cool module in auto mode - do not use...
+  #define peltierPwmPin 3   // Turns heat/cool module on and off (default cool, pin 6 low - heat)
+  #define heatCoolPin 6 // Default is Cool mode, pin low is Heat mode
+  #define lightPin 5  // controls relay to led lights
+  #define mistPin 9   // controls the humidifier relay
+#endif
 // input pins
 #if defined(Mega2560) &&  Mega2560
   #define topButton 43   // top mode button connected to digital pin 2
@@ -623,6 +630,7 @@ void setup() {
 
   #ifdef FIRSTTIME
   //hchID = 9; //comment this out for writing initial values only - run once
+  // influx seems to accomodate only a two digit ID here...
   //updateEEPROM(); //comment this out for writing initial values only - run once
   #endif
 
