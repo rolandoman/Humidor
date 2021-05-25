@@ -1,6 +1,11 @@
 
 void ioSetup(void) {
 
+
+  pinMode(sensPin1, INPUT_PULLUP); // DHT22 #1
+  pinMode(sensPin2, INPUT_PULLUP); // DHT22 #2
+  pinMode(sensPin3, INPUT_PULLUP); // DHT22 #3
+  
   pinMode(topButton, INPUT);      // sets the topmost mode button digital pin as input
   pinMode(midButton, INPUT);      // sets the middle increase button digital pin as input
   pinMode(botButton, INPUT);      // sets the bottom decrease button digital pin as input
