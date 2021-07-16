@@ -94,7 +94,7 @@ unsigned char curH1=0, curH2=0, curH=0;
 
 #if defined(FIRSTTIME) &&  FIRSTTIME
 // only set these defaults if first time setting up device.
-unsigned int setT = 2550; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
+unsigned int setT = 2350; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
 unsigned char setH = 75; // initial set points for feedback
 boolean fruitFlag = false;  // used to determine whether the LED light is turned on and off in the daytime
 unsigned char hchID = 9; // influx seems to accomodate only a two digit ID here...

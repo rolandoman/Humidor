@@ -95,7 +95,7 @@ const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minutes upload 
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (30L * 1000L); // Every 30 seconds update time of day (and auto update configs)
-const unsigned long updateEEPROMInterval = (1800L * 1000L); // Every 30 minutes update values in EEPROM
+const unsigned long updateEEPROMInterval = (3600L * 1000L); // Every 60 minutes update values in EEPROM
 
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
 unsigned char maxRunMode = 3;
@@ -129,7 +129,7 @@ unsigned char curH1=0, curH2=0, curH=0;
 
 #if defined(FIRSTTIME) &&  FIRSTTIME
 // only set these defaults if first time setting up device.
-unsigned int setT = 2550; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
+unsigned int setT = 2350; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
 unsigned char setH = 75; // initial set points for feedback
 boolean fruitFlag = false;  // used to determine whether the LED light is turned on and off in the daytime
 unsigned char hchID = 9; // influx seems to accomodate only a two digit ID here...
