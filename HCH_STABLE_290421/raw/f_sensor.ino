@@ -46,7 +46,7 @@ void readSensorData() {
 
   // should put in some logic here in case a bad reading from one of the sensors...
 
-  float lastErf = Erf ;
+  float lastErf = Erf;
   float lastintErf = intErf;
 
   float t1= dht1.readTemperature();
@@ -69,7 +69,7 @@ void readSensorData() {
 
   Erf = (float) ((float) curT - (float) setT);
 
-  intErf = (float) ((0.95)*lastintErf + Erf);
+  intErf = (float) ((0.98)*lastintErf + Erf); // multiplyer may not be necessary here, added it to avoid infinite accumulation of errors
   float difErf = (Erf - lastErf);
 
   // Hard code the gain to start... will abstract this later...

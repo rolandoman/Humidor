@@ -61,6 +61,8 @@ const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measur
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (30L * 1000L); // Every 30 seconds update time of day (and auto update configs)
 
+const unsigned long updateEEPROMInterval = (); // Every 30 minutes update values in EEPROM
+
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
 unsigned char maxRunMode = 3;
 unsigned char oldRunMode = 0;
@@ -87,7 +89,7 @@ unsigned int udpport = 8089;
 // globals to save space as 10x real values... used for PID
 unsigned int curT1=0, curT2=0, curT=0;
 unsigned char curH1=0, curH2=0, curH=0;
-float Erf, intErf=0;
+
 // Beginning of active controls, these are the set points for the temp and humidity
 
 
@@ -97,11 +99,14 @@ unsigned int setT = 2550; // two decimal places means multiply by 100 for accura
 unsigned char setH = 75; // initial set points for feedback
 boolean fruitFlag = false;  // used to determine whether the LED light is turned on and off in the daytime
 unsigned char hchID = 9; // influx seems to accomodate only a two digit ID here...
+float Erf;
+float intErf=0;
 #else
 unsigned int setT;
 unsigned char setH;
 boolean fruitFlag;
 unsigned char hchID;
+float Erf, intErf;
 #endif
 
 unsigned char heaterPower = 0; // make sure the heater starts in the off position

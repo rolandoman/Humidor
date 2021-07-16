@@ -77,6 +77,7 @@ delay(500);
   timer.setInterval(measureInterval, readSensorData);
   timer.setInterval(updateLCDInterval, updateLCD);
   timer.setInterval(updateDaytimeInterval, isDaytime);
+  timer.setInterval(updateEEPROMInterval, updateEEPROM);
 
   watchdogSetup();  // make sure that watchdog will reboot if prog hangs
 
