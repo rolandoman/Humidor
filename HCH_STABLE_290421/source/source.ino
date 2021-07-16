@@ -37,7 +37,7 @@ Adding a compiler compare so the code may work on the old boards...
 // comment this out for production mode...
 #define DEBUG 1
 // set this flag if running for first time to burn defaults into EEPROM
-//#define FIRSTTIME 1
+#define FIRSTTIME 1
 
 // special characters for the LCD display, should create a nice logo
 byte N1_c[8] = {B11100,B10111,B11101,B00001,B11101,B10111,B11100,B00000};
@@ -332,11 +332,10 @@ void updateLCD(){
 
 void ioSetup(void) {
 
-
   pinMode(sensPin1, INPUT_PULLUP); // DHT22 #1
   pinMode(sensPin2, INPUT_PULLUP); // DHT22 #2
   pinMode(sensPin3, INPUT_PULLUP); // DHT22 #3
-  
+
   pinMode(topButton, INPUT);      // sets the topmost mode button digital pin as input
   pinMode(midButton, INPUT);      // sets the middle increase button digital pin as input
   pinMode(botButton, INPUT);      // sets the bottom decrease button digital pin as input
@@ -640,9 +639,9 @@ Adding a compiler compare so the code may work on the old boards...
 void setup() {
 
   #ifdef FIRSTTIME
-  //hchID = 9; //comment this out for writing initial values only - run once
+  hchID = 9; //comment this out for writing initial values only - run once
   // influx seems to accomodate only a two digit ID here...
-  //updateEEPROM(); //comment this out for writing initial values only - run once
+  updateEEPROM(); //comment this out for writing initial values only - run once
   #endif
 
   Ethernet.init(53);  // Added for working with Mega 2560
