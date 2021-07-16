@@ -96,6 +96,8 @@ const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measur
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (30L * 1000L); // Every 30 seconds update time of day (and auto update configs)
 
+const unsigned long updateEEPROMInterval = (); // Every 30 minutes update values in EEPROM
+
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
 unsigned char maxRunMode = 3;
 unsigned char oldRunMode = 0;
@@ -122,7 +124,7 @@ unsigned int udpport = 8089;
 // globals to save space as 10x real values... used for PID
 unsigned int curT1=0, curT2=0, curT=0;
 unsigned char curH1=0, curH2=0, curH=0;
-float Erf, intErf=0;
+
 // Beginning of active controls, these are the set points for the temp and humidity
 
 
@@ -132,11 +134,14 @@ unsigned int setT = 2550; // two decimal places means multiply by 100 for accura
 unsigned char setH = 75; // initial set points for feedback
 boolean fruitFlag = false;  // used to determine whether the LED light is turned on and off in the daytime
 unsigned char hchID = 9; // influx seems to accomodate only a two digit ID here...
+float Erf;
+float intErf=0;
 #else
 unsigned int setT;
 unsigned char setH;
 boolean fruitFlag;
 unsigned char hchID;
+float Erf, intErf;
 #endif
 
 unsigned char heaterPower = 0; // make sure the heater starts in the off position
@@ -177,6 +182,10 @@ void readEEPROM() {
   //hchID added in 2021
   EEPROM.get(eeAddress, hchID);
   eeAddress += sizeof(hchID);
+  // added to make the feedback less glitchy on reboot
+  //float Erf, intErf;
+  EEPROM.get(eeAddress, intErf);
+  eeAddress += sizeof(intErf);
 }
 
 void updateEEPROM() {
@@ -191,6 +200,10 @@ void updateEEPROM() {
   //hchID added in 2021
   EEPROM.put(eeAddress, hchID);
   eeAddress += sizeof(hchID);
+  // added to make the feedback less glitchy on reboot
+  //float Erf, intErf;
+  EEPROM.put(eeAddress, intErf);
+  eeAddress += sizeof(intErf);
 }
 
 void(* resetFunc) (void) = 0; //declare reset function @ address 0
@@ -453,7 +466,7 @@ void readSensorData() {
 
   // should put in some logic here in case a bad reading from one of the sensors...
 
-  float lastErf = Erf ;
+  float lastErf = Erf;
   float lastintErf = intErf;
 
   float t1= dht1.readTemperature();
@@ -476,7 +489,7 @@ void readSensorData() {
 
   Erf = (float) ((float) curT - (float) setT);
 
-  intErf = (float) ((0.95)*lastintErf + Erf);
+  intErf = (float) ((0.98)*lastintErf + Erf); // multiplyer may not be necessary here, added it to avoid infinite accumulation of errors
   float difErf = (Erf - lastErf);
 
   // Hard code the gain to start... will abstract this later...
@@ -723,6 +736,7 @@ delay(500);
   timer.setInterval(measureInterval, readSensorData);
   timer.setInterval(updateLCDInterval, updateLCD);
   timer.setInterval(updateDaytimeInterval, isDaytime);
+  timer.setInterval(updateEEPROMInterval, updateEEPROM);
 
   watchdogSetup();  // make sure that watchdog will reboot if prog hangs
 

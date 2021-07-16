@@ -60,8 +60,7 @@ const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minutes upload 
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (30L * 1000L); // Every 30 seconds update time of day (and auto update configs)
-
-const unsigned long updateEEPROMInterval = (); // Every 30 minutes update values in EEPROM
+const unsigned long updateEEPROMInterval = (1800L * 1000L); // Every 30 minutes update values in EEPROM
 
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
 unsigned char maxRunMode = 3;
