@@ -89,8 +89,20 @@ unsigned int curT1=0, curT2=0, curT=0;
 unsigned char curH1=0, curH2=0, curH=0;
 float Erf, intErf=0;
 // Beginning of active controls, these are the set points for the temp and humidity
+
+
+#if defined(FIRSTTIME) &&  FIRSTTIME
+// only set these defaults if first time setting up device.
 unsigned int setT = 2550; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
 unsigned char setH = 75; // initial set points for feedback
+boolean fruitFlag = false;  // used to determine whether the LED light is turned on and off in the daytime
+unsigned char hchID = 9; // influx seems to accomodate only a two digit ID here...
+#else
+unsigned int setT;
+unsigned char setH;
+boolean fruitFlag;
+unsigned char hchID;
+#endif
 
 unsigned char heaterPower = 0; // make sure the heater starts in the off position
 boolean heatcoolFlag = false;
@@ -100,7 +112,6 @@ boolean mistFlag = false;   // should we mist?
 boolean netFlag = false;    // used to notify if data upload has succeeded
 
 boolean isDay = false;  // within the right hour range to be day time
-boolean fruitFlag = false;  // used to determine whether the LED light is turned on and off in the daytime
 
 // Connect via i2c, default address 0x27 (A0-A2 not jumpered)
 LiquidCrystal_I2C lcd(0x27, 20, 4);  // Set the LCD I2C address
@@ -119,5 +130,3 @@ int Minutes=0;
 SimpleTimer timer;  // Instantiate the SimpleTimer object
 
 DHT dht1(sensPin1, DHTTYPE); DHT dht2(sensPin2, DHTTYPE); DHT dht3(sensPin3, DHTTYPE);  //// Instantiate DHT sensors
-
-unsigned char hchID;

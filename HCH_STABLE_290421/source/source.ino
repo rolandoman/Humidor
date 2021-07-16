@@ -37,7 +37,7 @@ Adding a compiler compare so the code may work on the old boards...
 // comment this out for production mode...
 #define DEBUG 1
 // set this flag if running for first time to burn defaults into EEPROM
-#define FIRSTTIME 1
+//#define FIRSTTIME 1
 
 // special characters for the LCD display, should create a nice logo
 byte N1_c[8] = {B11100,B10111,B11101,B00001,B11101,B10111,B11100,B00000};
@@ -124,8 +124,11 @@ unsigned int curT1=0, curT2=0, curT=0;
 unsigned char curH1=0, curH2=0, curH=0;
 float Erf, intErf=0;
 // Beginning of active controls, these are the set points for the temp and humidity
+#ifdef FIRSTTIME
+// only set these defaults if first time setting up device.
 unsigned int setT = 2550; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
 unsigned char setH = 75; // initial set points for feedback
+#endif
 
 unsigned char heaterPower = 0; // make sure the heater starts in the off position
 boolean heatcoolFlag = false;
@@ -639,9 +642,9 @@ Adding a compiler compare so the code may work on the old boards...
 void setup() {
 
   #ifdef FIRSTTIME
-  hchID = 9; //comment this out for writing initial values only - run once
+  //hchID = 9; //comment this out for writing initial values only - run once
   // influx seems to accomodate only a two digit ID here...
-  updateEEPROM(); //comment this out for writing initial values only - run once
+  //updateEEPROM(); //comment this out for writing initial values only - run once
   #endif
 
   Ethernet.init(53);  // Added for working with Mega 2560
