@@ -37,7 +37,7 @@ Adding a compiler compare so the code may work on the old boards...
 // comment this out for production mode...
 #define DEBUG 1
 // set this flag if running for first time to burn defaults into EEPROM
-//#define FIRSTTIME 1
+#define FIRSTTIME 1
 
 // special characters for the LCD display, should create a nice logo
 byte N1_c[8] = {B11100,B10111,B11101,B00001,B11101,B10111,B11100,B00000};
@@ -95,7 +95,7 @@ const unsigned long uploadInterval = (60L * 1000L); // for testing purposes
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (30L * 1000L); // Every 30 seconds update time of day (and auto update configs)
-const unsigned long updateEEPROMInterval = (3600L * 1000L); // Every 60 minutes update values in EEPROM
+const unsigned long updatePIDvalsInterval = (1800L * 1000L); // Every 30 minutes update values in EEPROM
 
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
 unsigned char maxRunMode = 3;
@@ -126,25 +126,26 @@ unsigned char curH1=0, curH2=0, curH=0;
 
 // Beginning of active controls, these are the set points for the temp and humidity
 
+float Erf;
 
 #if defined(FIRSTTIME) &&  FIRSTTIME
 // only set these defaults if first time setting up device.
-unsigned int setT = 2400; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
-unsigned char setH = 75; // initial set points for feedback
-boolean fruitFlag = true;  // used to determine whether the LED light is turned on and off in the daytime
-unsigned char hchID = 9; // influx seems to accomodate only a two digit ID here...
-float Erf;
-float intErf=0;
+  unsigned int setT = 2500; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
+  unsigned char setH = 50; // initial set points for feedback
+  boolean fruitFlag = true;  // used to determine whether the LED light is turned on and off in the daytime
+  unsigned char hchID = 9; // influx seems to accomodate only a two digit ID here...
+  float intErf=0;
+  unsigned char heaterPower = 0; // make sure the heater starts in the off position
+  boolean heatcoolFlag = false;
 #else
-unsigned int setT;
-unsigned char setH;
-boolean fruitFlag;
-unsigned char hchID;
-float Erf, intErf;
+  unsigned int setT;
+  unsigned char setH;
+  boolean fruitFlag;
+  unsigned char hchID;
+  float intErf;
+  unsigned char heaterPower;
+  boolean heatcoolFlag;
 #endif
-
-unsigned char heaterPower = 0; // make sure the heater starts in the off position
-boolean heatcoolFlag = false;
 
 boolean lightFlag = false;  // should we turn on the LED
 boolean mistFlag = false;   // should we mist?
@@ -203,6 +204,42 @@ void updateEEPROM() {
   //float Erf, intErf;
   //EEPROM.put(eeAddress, intErf);
   //eeAddress += sizeof(intErf);
+}
+
+void readPIDvals() {
+  int eeAddress = 0;
+  eeAddress += sizeof(setT);
+  eeAddress += sizeof(setH);
+  eeAddress += sizeof(fruitFlag);
+  eeAddress += sizeof(hchID);
+  // intErf, heaterPower, heatcoolFlag, lightFlag
+  EEPROM.get(eeAddress, intErf);
+  eeAddress += sizeof(intErf);
+  EEPROM.get(eeAddress, heaterPower);
+  eeAddress += sizeof(heaterPower);
+  EEPROM.get(eeAddress, heatcoolFlag);
+  eeAddress += sizeof(heatcoolFlag);
+  EEPROM.get(eeAddress, lightFlag);
+  eeAddress += sizeof(lightFlag);
+
+}
+void updatePIDvals() {
+  int eeAddress = 0;
+  eeAddress += sizeof(setT);
+  eeAddress += sizeof(setH);
+  eeAddress += sizeof(fruitFlag);
+  eeAddress += sizeof(hchID);
+  // intErf, heaterPower, heatcoolFlag, lightFlag
+  EEPROM.put(eeAddress, intErf);
+  eeAddress += sizeof(intErf);
+  EEPROM.put(eeAddress, heaterPower);
+  eeAddress += sizeof(heaterPower);
+  EEPROM.put(eeAddress, heatcoolFlag);
+  eeAddress += sizeof(heatcoolFlag);
+  EEPROM.put(eeAddress, lightFlag);
+  eeAddress += sizeof(lightFlag);
+
+
 }
 
 void(* resetFunc) (void) = 0; //declare reset function @ address 0
@@ -448,13 +485,13 @@ void setMist() {
 void setLED() {
   if (lightFlag) {
     digitalWrite(lightPin, Relay_ON);
-    #ifdef DEBUG
+    #if defined(DEBUG) &&  DEBUG
       Serial.println("LED Relay ON");
     #endif
     delay(250);
   } else {
     digitalWrite(lightPin, Relay_OFF);
-    #ifdef DEBUG
+    #if defined(DEBUG) &&  DEBUG
       Serial.println("LED Relay OFF");
     #endif
     delay(250);
@@ -519,7 +556,7 @@ void readSensorData() {
     mistFlag = false;
   }
 
-  #ifdef DEBUG
+  #if defined(DEBUG) &&  DEBUG
   if ((t1 >= 5) && (t1 <= 40)) {
     //DEBUG_PRINTF("Sensor 1: Good");
     //DEBUG_PRINT("Hum1: " + String(curH1, DEC) + " %, Tmp1: " + String(curT1, DEC) + " degC");
@@ -667,16 +704,21 @@ Adding a compiler compare so the code may work on the old boards...
 /*          SETUP FUNCTION          */
 void setup() {
 
-  #ifdef FIRSTTIME
-  updateEEPROM(); //comment this out for writing initial values only - run once
+  #if defined(FIRSTTIME) &&  FIRSTTIME
+    updateEEPROM(); //comment this out for writing initial values only - run once
+    updatePIDvals(); // zero out the PID stored values for initial run
   #else
-  readEEPROM(); // get all the stored values
+    readEEPROM(); // get all the stored values
+    readPIDvals(); // get PID vals if they were happily stored from last run
   #endif
+
+  setHeater(); // after reading default values, set up heater and LED
+  setLED();
 
   Ethernet.init(53);  // Added for working with Mega 2560
 
   // start the serial port... turn off in production mode - way too wasteful with memory!
-  #ifdef DEBUG
+  #if defined(DEBUG) &&  DEBUG
   Serial.begin(57600);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
@@ -692,16 +734,16 @@ void setup() {
 
 
   // start the Ethernet connection:
-  #ifdef DEBUG
+  #if defined(DEBUG) &&  DEBUG
   Serial.println("Initialize Ethernet with DHCP:");
   #endif
   if (Ethernet.begin(mac) == 0) {
-    #ifdef DEBUG
+    #if defined(DEBUG) &&  DEBUG
     Serial.println("Failed to configure Ethernet using DHCP");
     #endif
   // Check for Ethernet hardware present
   if (Ethernet.hardwareStatus() == EthernetNoHardware) {
-    #ifdef DEBUG
+    #if defined(DEBUG) &&  DEBUG
     Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
     #endif
     while (true) {
@@ -709,14 +751,14 @@ void setup() {
     }
   }
   if (Ethernet.linkStatus() == LinkOFF) {
-    #ifdef DEBUG
+    #if defined(DEBUG) &&  DEBUG
     Serial.println("Ethernet cable is not connected.");
     #endif
   }
   // try to configure using IP address instead of DHCP:
   //Ethernet.begin(mac, ip, dnServer);
 } else {
-  #ifdef DEBUG
+  #if defined(DEBUG) &&  DEBUG
   Serial.print("  DHCP assigned IP ");
   Serial.println(Ethernet.localIP());
   #endif
@@ -743,7 +785,7 @@ delay(500);
   timer.setInterval(measureInterval, readSensorData);
   timer.setInterval(updateLCDInterval, updateLCD);
   timer.setInterval(updateDaytimeInterval, isDaytime);
-  timer.setInterval(updateEEPROMInterval, updateEEPROM);
+  timer.setInterval(updatePIDvalsInterval, updatePIDvals);
 
   watchdogSetup();  // make sure that watchdog will reboot if prog hangs
 
