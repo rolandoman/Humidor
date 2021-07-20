@@ -90,8 +90,8 @@ byte degC_c[8] = {B01000,B10100,B01000,B00011,B00100,B00100,B00011,B00000};
   #define botButton 8   // bottom decrease button connected to digital pin 8
 #endif
 
-const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minutes upload sensor data
-//const unsigned long uploadInterval = (60L * 1000L); // for testing purposes
+//const unsigned long uploadInterval = (300L * 1000L);  // Every 5 minutes upload sensor data
+const unsigned long uploadInterval = (60L * 1000L); // for testing purposes
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (30L * 1000L); // Every 30 seconds update time of day (and auto update configs)
@@ -129,9 +129,9 @@ unsigned char curH1=0, curH2=0, curH=0;
 
 #if defined(FIRSTTIME) &&  FIRSTTIME
 // only set these defaults if first time setting up device.
-unsigned int setT = 2350; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
+unsigned int setT = 2400; // two decimal places means multiply by 100 for accuracy 2560 (78F) for incubation, 2230 (72F)for fruiting
 unsigned char setH = 75; // initial set points for feedback
-boolean fruitFlag = false;  // used to determine whether the LED light is turned on and off in the daytime
+boolean fruitFlag = true;  // used to determine whether the LED light is turned on and off in the daytime
 unsigned char hchID = 9; // influx seems to accomodate only a two digit ID here...
 float Erf;
 float intErf=0;
@@ -183,8 +183,8 @@ void readEEPROM() {
   eeAddress += sizeof(hchID);
   // added to make the feedback less glitchy on reboot
   //float Erf, intErf;
-  EEPROM.get(eeAddress, intErf);
-  eeAddress += sizeof(intErf);
+  //EEPROM.get(eeAddress, intErf);
+  //eeAddress += sizeof(intErf);
 }
 
 void updateEEPROM() {
@@ -201,8 +201,8 @@ void updateEEPROM() {
   eeAddress += sizeof(hchID);
   // added to make the feedback less glitchy on reboot
   //float Erf, intErf;
-  EEPROM.put(eeAddress, intErf);
-  eeAddress += sizeof(intErf);
+  //EEPROM.put(eeAddress, intErf);
+  //eeAddress += sizeof(intErf);
 }
 
 void(* resetFunc) (void) = 0; //declare reset function @ address 0
@@ -423,13 +423,15 @@ void setHeater() {
 
   // be prepared to monkey with this to set the polarity properly visa vis the pololu bridge
   if (heatcoolFlag) {
-    digitalWrite(heatCoolPin, HIGH);
+    digitalWrite(heatCoolPin, LOW);
   } else {
-    digitalWrite(heatCoolPin, LOW); // If you want cooling, reverse polarity of H-bridge
+    digitalWrite(heatCoolPin, HIGH); // If you want cooling, reverse polarity of H-bridge
   }
   // set peltier to proper pwm value for H-bridge...
   unsigned int pwmValue = (unsigned int) (lround(min(heaterPower * 255 / 100,255))); // max PWM value is 255
   analogWrite(peltierPwmPin, pwmValue);
+  //digitalWrite(heatCoolPin, HIGH);
+  //analogWrite(peltierPwmPin, 250);
 
 }
 
@@ -488,13 +490,19 @@ void readSensorData() {
 
   Erf = (float) ((float) curT - (float) setT);
 
-  intErf = (float) ((0.98)*lastintErf + Erf); // multiplyer may not be necessary here, added it to avoid infinite accumulation of errors
+  intErf += Erf; // multiplyer may not be necessary here, added it to avoid infinite accumulation of errors
   float difErf = (Erf - lastErf);
 
   // Hard code the gain to start... will abstract this later...
-  float Signal = 0.5 * (Erf + difErf*6 + intErf/4);
+  //float Signal = 0.5 * (Erf + difErf*6 + intErf/4);
+  float Signal = 0.5 * (Erf + difErf*12 + intErf/8);
 
-  //DEBUG_PRINT("Signal: "+String(Signal));
+  #if defined(DEBUG) &&  DEBUG
+  Serial.println("Erf: "+String(Erf));
+  Serial.println("difErf: "+String(difErf));
+  Serial.println("intErf: "+String(intErf));
+  Serial.println("Signal: "+String(Signal));
+  #endif
 
   if (Signal>0) {
     heatcoolFlag = false;  // if T>Tset, then cool

@@ -12,8 +12,8 @@ void readEEPROM() {
   eeAddress += sizeof(hchID);
   // added to make the feedback less glitchy on reboot
   //float Erf, intErf;
-  EEPROM.get(eeAddress, intErf);
-  eeAddress += sizeof(intErf);
+  //EEPROM.get(eeAddress, intErf);
+  //eeAddress += sizeof(intErf);
 }
 
 void updateEEPROM() {
@@ -30,6 +30,6 @@ void updateEEPROM() {
   eeAddress += sizeof(hchID);
   // added to make the feedback less glitchy on reboot
   //float Erf, intErf;
-  EEPROM.put(eeAddress, intErf);
-  eeAddress += sizeof(intErf);
+  //EEPROM.put(eeAddress, intErf);
+  //eeAddress += sizeof(intErf);
 }

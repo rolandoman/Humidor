@@ -4,13 +4,15 @@ void setHeater() {
 
   // be prepared to monkey with this to set the polarity properly visa vis the pololu bridge
   if (heatcoolFlag) {
-    digitalWrite(heatCoolPin, HIGH);
+    digitalWrite(heatCoolPin, LOW);
   } else {
-    digitalWrite(heatCoolPin, LOW); // If you want cooling, reverse polarity of H-bridge
+    digitalWrite(heatCoolPin, HIGH); // If you want cooling, reverse polarity of H-bridge
   }
   // set peltier to proper pwm value for H-bridge...
   unsigned int pwmValue = (unsigned int) (lround(min(heaterPower * 255 / 100,255))); // max PWM value is 255
   analogWrite(peltierPwmPin, pwmValue);
+  //digitalWrite(heatCoolPin, HIGH);
+  //analogWrite(peltierPwmPin, 250);
 
 }
 
@@ -69,13 +71,19 @@ void readSensorData() {
 
   Erf = (float) ((float) curT - (float) setT);
 
-  intErf = (float) ((0.98)*lastintErf + Erf); // multiplyer may not be necessary here, added it to avoid infinite accumulation of errors
+  intErf += Erf; // multiplyer may not be necessary here, added it to avoid infinite accumulation of errors
   float difErf = (Erf - lastErf);
 
   // Hard code the gain to start... will abstract this later...
-  float Signal = 0.5 * (Erf + difErf*6 + intErf/4);
+  //float Signal = 0.5 * (Erf + difErf*6 + intErf/4);
+  float Signal = 0.5 * (Erf + difErf*12 + intErf/8);
 
-  //DEBUG_PRINT("Signal: "+String(Signal));
+  #if defined(DEBUG) &&  DEBUG
+  Serial.println("Erf: "+String(Erf));
+  Serial.println("difErf: "+String(difErf));
+  Serial.println("intErf: "+String(intErf));
+  Serial.println("Signal: "+String(Signal));
+  #endif
 
   if (Signal>0) {
     heatcoolFlag = false;  // if T>Tset, then cool
