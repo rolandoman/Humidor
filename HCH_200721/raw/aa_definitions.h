@@ -2,7 +2,7 @@
 // comment this out for production mode...
 #define DEBUG 1
 // set this flag if running for first time to burn defaults into EEPROM
-#define FIRSTTIME 1
+//#define FIRSTTIME 1
 
 // special characters for the LCD display, should create a nice logo
 byte N1_c[8] = {B11100,B10111,B11101,B00001,B11101,B10111,B11100,B00000};
@@ -60,7 +60,7 @@ const unsigned long uploadInterval = (60L * 1000L); // for testing purposes
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (30L * 1000L); // Every 30 seconds update time of day (and auto update configs)
-const unsigned long updatePIDvalsInterval = (1800L * 1000L); // Every 30 minutes update values in EEPROM
+const unsigned long updatePIDvalsInterval = (3600L * 1000L); // Every 30 minutes (1800s) update values in EEPROM
 
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
 unsigned char maxRunMode = 3;
