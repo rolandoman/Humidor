@@ -2,7 +2,7 @@
 // comment this out for production mode...
 #define DEBUG 1
 // set this flag if running for first time to burn defaults into EEPROM
-//#define FIRSTTIME 1
+#define FIRSTTIME 1
 
 // special characters for the LCD display, should create a nice logo
 byte N1_c[8] = {B11100,B10111,B11101,B00001,B11101,B10111,B11100,B00000};
