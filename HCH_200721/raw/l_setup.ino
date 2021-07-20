@@ -9,9 +9,6 @@ void setup() {
     readPIDvals(); // get PID vals if they were happily stored from last run
   #endif
 
-  setHeater(); // after reading default values, set up heater and LED
-  setLED();
-
   Ethernet.init(53);  // Added for working with Mega 2560
 
   // start the serial port... turn off in production mode - way too wasteful with memory!
@@ -26,6 +23,9 @@ void setup() {
   lcd.begin();  // start LCD Screen
   lcdSetup(); // print the initial screen
   ioSetup();  // setup which arduino pins are INPUT, and OUTPUT...
+
+  setHeater(); // after reading default values, set up heater and LED
+  setLED();
 
   delay(250); // give the ethernet module time to boot up: This was soooo crucial!!!
 
