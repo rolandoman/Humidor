@@ -95,7 +95,7 @@ const unsigned long uploadInterval = (60L * 1000L); // for testing purposes
 const unsigned long measureInterval = (30L * 1000L);  // Every 30 seconds measure the sensors
 const unsigned long updateLCDInterval = (2L * 1000L); // Every 2 seconds update the LCD unless there is a change
 const unsigned long updateDaytimeInterval = (30L * 1000L); // Every 30 seconds update time of day (and auto update configs)
-const unsigned long updatePIDvalsInterval = (3600L * 1000L); // Every 30 minutes (1800s) update values in EEPROM
+const unsigned long updatePIDvalsInterval = (3600L * 1000L); // Every 60 minutes (3600s) update values in EEPROM
 
 unsigned char runMode = 0;  // 0 - run, 1 - edit setT, 2 - edit setH, -- more to come later...
 unsigned char maxRunMode = 3;
@@ -712,9 +712,6 @@ void setup() {
     readPIDvals(); // get PID vals if they were happily stored from last run
   #endif
 
-  setHeater(); // after reading default values, set up heater and LED
-  setLED();
-
   Ethernet.init(53);  // Added for working with Mega 2560
 
   // start the serial port... turn off in production mode - way too wasteful with memory!
@@ -729,6 +726,9 @@ void setup() {
   lcd.begin();  // start LCD Screen
   lcdSetup(); // print the initial screen
   ioSetup();  // setup which arduino pins are INPUT, and OUTPUT...
+
+  setHeater(); // after reading default values, set up heater and LED
+  setLED();
 
   delay(250); // give the ethernet module time to boot up: This was soooo crucial!!!
 
