@@ -1,16 +1,21 @@
 /*          SETUP FUNCTION          */
 void setup() {
 
-  #ifdef FIRSTTIME
-  updateEEPROM(); //comment this out for writing initial values only - run once
+  #if defined(FIRSTTIME) &&  FIRSTTIME
+    updateEEPROM(); //comment this out for writing initial values only - run once
+    updatePIDvals(); // zero out the PID stored values for initial run
   #else
-  readEEPROM(); // get all the stored values
+    readEEPROM(); // get all the stored values
+    readPIDvals(); // get PID vals if they were happily stored from last run
   #endif
+
+  setHeater(); // after reading default values, set up heater and LED
+  setLED();
 
   Ethernet.init(53);  // Added for working with Mega 2560
 
   // start the serial port... turn off in production mode - way too wasteful with memory!
-  #ifdef DEBUG
+  #if defined(DEBUG) &&  DEBUG
   Serial.begin(57600);
   while (!Serial) {
     ; // wait for serial port to connect. Needed for native USB port only
@@ -26,16 +31,16 @@ void setup() {
 
 
   // start the Ethernet connection:
-  #ifdef DEBUG
+  #if defined(DEBUG) &&  DEBUG
   Serial.println("Initialize Ethernet with DHCP:");
   #endif
   if (Ethernet.begin(mac) == 0) {
-    #ifdef DEBUG
+    #if defined(DEBUG) &&  DEBUG
     Serial.println("Failed to configure Ethernet using DHCP");
     #endif
   // Check for Ethernet hardware present
   if (Ethernet.hardwareStatus() == EthernetNoHardware) {
-    #ifdef DEBUG
+    #if defined(DEBUG) &&  DEBUG
     Serial.println("Ethernet shield was not found.  Sorry, can't run without hardware. :(");
     #endif
     while (true) {
@@ -43,14 +48,14 @@ void setup() {
     }
   }
   if (Ethernet.linkStatus() == LinkOFF) {
-    #ifdef DEBUG
+    #if defined(DEBUG) &&  DEBUG
     Serial.println("Ethernet cable is not connected.");
     #endif
   }
   // try to configure using IP address instead of DHCP:
   //Ethernet.begin(mac, ip, dnServer);
 } else {
-  #ifdef DEBUG
+  #if defined(DEBUG) &&  DEBUG
   Serial.print("  DHCP assigned IP ");
   Serial.println(Ethernet.localIP());
   #endif
@@ -77,7 +82,7 @@ delay(500);
   timer.setInterval(measureInterval, readSensorData);
   timer.setInterval(updateLCDInterval, updateLCD);
   timer.setInterval(updateDaytimeInterval, isDaytime);
-  timer.setInterval(updateEEPROMInterval, updateEEPROM);
+  timer.setInterval(updatePIDvalsInterval, updatePIDvals);
 
   watchdogSetup();  // make sure that watchdog will reboot if prog hangs
 

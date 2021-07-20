@@ -29,13 +29,13 @@ void setMist() {
 void setLED() {
   if (lightFlag) {
     digitalWrite(lightPin, Relay_ON);
-    #ifdef DEBUG
+    #if defined(DEBUG) &&  DEBUG
       Serial.println("LED Relay ON");
     #endif
     delay(250);
   } else {
     digitalWrite(lightPin, Relay_OFF);
-    #ifdef DEBUG
+    #if defined(DEBUG) &&  DEBUG
       Serial.println("LED Relay OFF");
     #endif
     delay(250);
@@ -100,7 +100,7 @@ void readSensorData() {
     mistFlag = false;
   }
 
-  #ifdef DEBUG
+  #if defined(DEBUG) &&  DEBUG
   if ((t1 >= 5) && (t1 <= 40)) {
     //DEBUG_PRINTF("Sensor 1: Good");
     //DEBUG_PRINT("Hum1: " + String(curH1, DEC) + " %, Tmp1: " + String(curT1, DEC) + " degC");
