@@ -76,7 +76,7 @@ void readSensorData() {
 
   // Hard code the gain to start... will abstract this later...
   //float Signal = 0.5 * (Erf + difErf*6 + intErf/4);
-  float Signal = 0.5 * (Erf + difErf*12 + intErf/8);
+  float Signal = 0.5 * (Erf + difErf*8 + intErf/12);
 
   #if defined(DEBUG) &&  DEBUG
   Serial.println("Erf: "+String(Erf));
